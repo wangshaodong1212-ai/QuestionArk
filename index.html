@@ -1,0 +1,2714 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>面试题答案小站</title>
+  <style>
+    :root {
+      --bg: #f7f8f5;
+      --panel: #ffffff;
+      --ink: #1f2528;
+      --muted: #667074;
+      --line: #dce2dc;
+      --accent: #0f766e;
+      --accent-strong: #0b5f59;
+      --accent-soft: #e4f3ef;
+      --warm: #a55f12;
+      --warm-soft: #fff1d6;
+      --shadow: 0 12px 30px rgba(31, 37, 40, 0.08);
+      color-scheme: light;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.72;
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 24px 18px;
+      border-right: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(14px);
+      overflow: auto;
+    }
+
+    .brand {
+      display: grid;
+      gap: 4px;
+      padding: 4px 6px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .brand p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .company-nav {
+      display: grid;
+      gap: 6px;
+      margin-top: 18px;
+    }
+
+    .company-link {
+      min-height: 40px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      color: var(--ink);
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .company-link:hover,
+    .company-link.active {
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+    }
+
+    .count,
+    .section-count {
+      min-width: 32px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--warm-soft);
+      color: var(--warm);
+      font-size: 12px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .main {
+      min-width: 0;
+      padding: 26px clamp(18px, 4vw, 54px) 48px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 4;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 0 18px;
+      background: linear-gradient(180deg, var(--bg) 0%, rgba(247, 248, 245, 0.92) 78%, rgba(247, 248, 245, 0) 100%);
+    }
+
+    .search {
+      min-height: 44px;
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--ink);
+      font: inherit;
+      padding: 10px 14px;
+      outline: none;
+      box-shadow: 0 1px 0 rgba(31, 37, 40, 0.03);
+    }
+
+    .search:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.14);
+    }
+
+    .select {
+      min-height: 44px;
+      max-width: 190px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--ink);
+      font: inherit;
+      padding: 8px 12px;
+    }
+
+    .action {
+      min-height: 44px;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      background: var(--accent);
+      color: #ffffff;
+      font: inherit;
+      padding: 8px 14px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .action.secondary {
+      background: var(--panel);
+      color: var(--accent-strong);
+    }
+
+    .summary-band {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 12px 0 28px;
+    }
+
+    .metric {
+      min-height: 82px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 1px 0 rgba(31, 37, 40, 0.02);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: clamp(24px, 4vw, 34px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .company-section {
+      scroll-margin-top: 92px;
+      margin-bottom: 28px;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 14px;
+      margin-bottom: 12px;
+      padding-top: 8px;
+    }
+
+    .eyebrow {
+      margin: 0 0 2px;
+      color: var(--accent-strong);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      font-weight: 700;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(22px, 3.2vw, 32px);
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .qa-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .qa-item {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 1px 0 rgba(31, 37, 40, 0.02);
+      overflow: clip;
+    }
+
+    .qa-item[open] {
+      box-shadow: var(--shadow);
+      border-color: rgba(15, 118, 110, 0.26);
+    }
+
+    summary {
+      min-height: 56px;
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+      padding: 12px 16px;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .qa-number {
+      width: 34px;
+      height: 34px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .qa-title {
+      min-width: 0;
+      font-weight: 700;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .answer {
+      padding: 0 16px 16px 64px;
+      color: #2e383b;
+    }
+
+    .answer p {
+      margin: 0;
+    }
+
+    code {
+      padding: 2px 5px;
+      border-radius: 5px;
+      background: #eef1eb;
+      color: #284044;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+    }
+
+    mark {
+      padding: 1px 3px;
+      border-radius: 4px;
+      background: #ffe59d;
+      color: inherit;
+    }
+
+    .empty {
+      display: none;
+      padding: 28px 18px;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.7);
+      text-align: center;
+    }
+
+    .empty.visible {
+      display: block;
+    }
+
+    .footer {
+      margin-top: 34px;
+      padding: 18px 0 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .shell {
+        display: block;
+      }
+
+      .sidebar {
+        position: static;
+        height: auto;
+        padding: 18px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .company-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .main {
+        padding: 18px 16px 36px;
+      }
+
+      .topbar {
+        grid-template-columns: minmax(0, 1fr);
+        padding-top: 8px;
+      }
+
+      .select {
+        max-width: none;
+        width: 100%;
+      }
+
+      .summary-band {
+        grid-template-columns: 1fr;
+      }
+
+      .answer {
+        padding-left: 16px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .company-nav {
+        grid-template-columns: 1fr;
+      }
+
+      summary {
+        grid-template-columns: 32px minmax(0, 1fr);
+        padding: 12px;
+      }
+
+      .qa-number {
+        width: 30px;
+        height: 30px;
+      }
+
+      .section-heading {
+        align-items: start;
+        flex-direction: column;
+      }
+    }
+
+    @media print {
+      .sidebar,
+      .topbar {
+        display: none;
+      }
+
+      .shell {
+        display: block;
+      }
+
+      .main {
+        padding: 0;
+      }
+
+      .qa-item {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>面试题答案小站</h1>
+        <p>12 家公司 · 196 道题 · 2026年6月29日 16:27</p>
+      </div>
+      <nav class="company-nav" aria-label="公司目录">
+        
+      <a href="#section-0" class="company-link" data-section-link="0">
+        <span>ML 公司</span>
+        <span class="count">16</span>
+      </a>
+
+      <a href="#section-1" class="company-link" data-section-link="1">
+        <span>KJ 公司</span>
+        <span class="count">12</span>
+      </a>
+
+      <a href="#section-2" class="company-link" data-section-link="2">
+        <span>JR 公司</span>
+        <span class="count">16</span>
+      </a>
+
+      <a href="#section-3" class="company-link" data-section-link="3">
+        <span>TK 公司</span>
+        <span class="count">10</span>
+      </a>
+
+      <a href="#section-4" class="company-link" data-section-link="4">
+        <span>YC 公司</span>
+        <span class="count">10</span>
+      </a>
+
+      <a href="#section-5" class="company-link" data-section-link="5">
+        <span>HJ 公司</span>
+        <span class="count">15</span>
+      </a>
+
+      <a href="#section-6" class="company-link" data-section-link="6">
+        <span>FN 公司</span>
+        <span class="count">10</span>
+      </a>
+
+      <a href="#section-7" class="company-link" data-section-link="7">
+        <span>XZ 公司</span>
+        <span class="count">5</span>
+      </a>
+
+      <a href="#section-8" class="company-link" data-section-link="8">
+        <span>SH 公司</span>
+        <span class="count">39</span>
+      </a>
+
+      <a href="#section-9" class="company-link" data-section-link="9">
+        <span>PY 公司</span>
+        <span class="count">24</span>
+      </a>
+
+      <a href="#section-10" class="company-link" data-section-link="10">
+        <span>HQ 公司</span>
+        <span class="count">36</span>
+      </a>
+
+      <a href="#section-11" class="company-link" data-section-link="11">
+        <span>YU 公司</span>
+        <span class="count">3</span>
+      </a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <input class="search" id="searchInput" type="search" placeholder="搜索公司、题目或答案" autocomplete="off">
+        <select class="select" id="companyFilter" aria-label="公司筛选">
+          <option value="all">全部公司</option>
+          <option value="0">ML 公司</option>
+<option value="1">KJ 公司</option>
+<option value="2">JR 公司</option>
+<option value="3">TK 公司</option>
+<option value="4">YC 公司</option>
+<option value="5">HJ 公司</option>
+<option value="6">FN 公司</option>
+<option value="7">XZ 公司</option>
+<option value="8">SH 公司</option>
+<option value="9">PY 公司</option>
+<option value="10">HQ 公司</option>
+<option value="11">YU 公司</option>
+        </select>
+        <button class="action secondary" id="toggleAll" type="button">展开全部</button>
+      </div>
+
+      <section class="summary-band" aria-label="统计">
+        <div class="metric">
+          <strong>12</strong>
+          <span>公司分组</span>
+        </div>
+        <div class="metric">
+          <strong>196</strong>
+          <span>面试题答案</span>
+        </div>
+        <div class="metric">
+          <strong id="visibleCount">196</strong>
+          <span>当前匹配</span>
+        </div>
+      </section>
+
+      <div id="content">
+        
+      <section class="company-section" id="section-0" data-company-section="0">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Company</p>
+            <h2>ML 公司</h2>
+          </div>
+          <span class="section-count">16 题</span>
+        </div>
+        <div class="qa-list">
+          
+          <details class="qa-item" data-qa data-section="0" data-search="ml 公司 ai xx 系统主要是做什么的？ 这是一个面向业务场景的 ai 能力系统，核心是把用户问题、业务数据、知识库和工具调用串起来，提供问答、检索、任务执行、内容生成或流程辅助能力。架构上通常包含入口层、意图识别层、rag/agent 编排层、工具层、模型层和监控评估层。">
+            <summary>
+              <span class="qa-number">1</span>
+              <span class="qa-title">AI xx 系统主要是做什么的？</span>
+            </summary>
+            <div class="answer">
+              <p>这是一个面向业务场景的 AI 能力系统，核心是把用户问题、业务数据、知识库和工具调用串起来，提供问答、检索、任务执行、内容生成或流程辅助能力。架构上通常包含入口层、意图识别层、RAG/Agent 编排层、工具层、模型层和监控评估层。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="0" data-search="ml 公司 langchain / langgraph 主要用了什么 ai 技术？ langchain 主要用于 llm 调用封装、prompt 模板、工具调用、rag 链路和记忆管理；langgraph 更偏状态机/图编排，适合多步骤 agent、条件分支、循环、人工介入和可恢复执行。底层涉及 function calling、react、rag、embedding、向量检索、状态管理等技术。">
+            <summary>
+              <span class="qa-number">2</span>
+              <span class="qa-title">LangChain / LangGraph 主要用了什么 AI 技术？</span>
+            </summary>
+            <div class="answer">
+              <p>LangChain 主要用于 LLM 调用封装、Prompt 模板、工具调用、RAG 链路和记忆管理；LangGraph 更偏状态机/图编排，适合多步骤 Agent、条件分支、循环、人工介入和可恢复执行。底层涉及 Function Calling、ReAct、RAG、Embedding、向量检索、状态管理等技术。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="0" data-search="ml 公司 有没有了解过 manus 这种通用 agent？ 了解。通用 agent 的目标是把规划、执行、工具调用、浏览器/文件/代码操作等能力统一起来，让模型可以完成复杂任务。它的关键不只是模型能力，还包括任务拆解、环境交互、执行反馈、错误恢复和上下文治理。">
+            <summary>
+              <span class="qa-number">3</span>
+              <span class="qa-title">有没有了解过 Manus 这种通用 Agent？</span>
+            </summary>
+            <div class="answer">
+              <p>了解。通用 Agent 的目标是把规划、执行、工具调用、浏览器/文件/代码操作等能力统一起来，让模型可以完成复杂任务。它的关键不只是模型能力，还包括任务拆解、环境交互、执行反馈、错误恢复和上下文治理。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="0" data-search="ml 公司 这些通用 agent 一般分几层功能？ 一般可以分为：用户交互层、任务规划层、记忆/上下文层、工具执行层、反馈评估层、权限与安全层、运行时/沙箱层。更工程化的系统还会有日志、成本、队列、监控和审计。">
+            <summary>
+              <span class="qa-number">4</span>
+              <span class="qa-title">这些通用 Agent 一般分几层功能？</span>
+            </summary>
+            <div class="answer">
+              <p>一般可以分为：用户交互层、任务规划层、记忆/上下文层、工具执行层、反馈评估层、权限与安全层、运行时/沙箱层。更工程化的系统还会有日志、成本、队列、监控和审计。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="0" data-search="ml 公司 有没有构建过多智能体架构？ 可以回答：做过或参与过类似设计。通常会把复杂任务拆成规划 agent、检索 agent、执行 agent、校验 agent、总结 agent 等角色，通过路由器或状态图协调，避免一个 agent 同时承担太多职责。">
+            <summary>
+              <span class="qa-number">5</span>
+              <span class="qa-title">有没有构建过多智能体架构？</span>
+            </summary>
+            <div class="answer">
+              <p>可以回答：做过或参与过类似设计。通常会把复杂任务拆成规划 Agent、检索 Agent、执行 Agent、校验 Agent、总结 Agent 等角色，通过路由器或状态图协调，避免一个 Agent 同时承担太多职责。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="0" data-search="ml 公司 什么是多 agent？ 多 agent 是把一个复杂 ai 任务拆给多个具备不同职责的智能体协同完成。每个 agent 可以有自己的 prompt、工具权限、上下文和输出规范。">
+            <summary>
+              <span class="qa-number">6</span>
+              <span class="qa-title">什么是多 Agent？</span>
+            </summary>
+            <div class="answer">
+              <p>多 Agent 是把一个复杂 AI 任务拆给多个具备不同职责的智能体协同完成。每个 Agent 可以有自己的 Prompt、工具权限、上下文和输出规范。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="0" data-search="ml 公司 为什么需要多 agent？ 因为复杂任务往往涉及规划、检索、计算、工具调用、校验等多个环节。多 agent 可以降低单个 prompt 的复杂度，让职责更清晰，也更方便调试、评估和扩展。">
+            <summary>
+              <span class="qa-number">7</span>
+              <span class="qa-title">为什么需要多 Agent？</span>
+            </summary>
+            <div class="answer">
+              <p>因为复杂任务往往涉及规划、检索、计算、工具调用、校验等多个环节。多 Agent 可以降低单个 Prompt 的复杂度，让职责更清晰，也更方便调试、评估和扩展。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="0" data-search="ml 公司 什么场景下需要多 agent 架构？ 适合长链路、多工具、多角色、多阶段审核的任务，比如报告生成、代码修复、数据分析、企业知识问答加流程办理、售前方案生成等。如果只是简单问答，不一定需要多 agent。">
+            <summary>
+              <span class="qa-number">8</span>
+              <span class="qa-title">什么场景下需要多 Agent 架构？</span>
+            </summary>
+            <div class="answer">
+              <p>适合长链路、多工具、多角色、多阶段审核的任务，比如报告生成、代码修复、数据分析、企业知识问答加流程办理、售前方案生成等。如果只是简单问答，不一定需要多 Agent。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="0" data-search="ml 公司 单个 agent 也可以分配多个职能，为什么还要多 agent？ 单 agent 可以做，但随着任务复杂度上升，prompt 会变长、职责会混乱、错误定位困难。多 agent 的价值在于解耦职责、控制工具权限、隔离上下文，并提升可观测性。">
+            <summary>
+              <span class="qa-number">9</span>
+              <span class="qa-title">单个 Agent 也可以分配多个职能，为什么还要多 Agent？</span>
+            </summary>
+            <div class="answer">
+              <p>单 Agent 可以做，但随着任务复杂度上升，Prompt 会变长、职责会混乱、错误定位困难。多 Agent 的价值在于解耦职责、控制工具权限、隔离上下文，并提升可观测性。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="0" data-search="ml 公司 多 agent 主要是为了解决什么问题？ 主要解决复杂任务拆解、职责隔离、长链路稳定性、工具权限控制、结果校验和可维护性问题。">
+            <summary>
+              <span class="qa-number">10</span>
+              <span class="qa-title">多 Agent 主要是为了解决什么问题？</span>
+            </summary>
+            <div class="answer">
+              <p>主要解决复杂任务拆解、职责隔离、长链路稳定性、工具权限控制、结果校验和可维护性问题。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="0" data-search="ml 公司 系统用户量和日活？ 按真实数据回答。建议口径：系统主要面向 `xx 类用户`，累计用户约 `x`，日活约 `x`，高峰集中在 `xx 时间段/xx 业务动作`。">
+            <summary>
+              <span class="qa-number">11</span>
+              <span class="qa-title">系统用户量和日活？</span>
+            </summary>
+            <div class="answer">
+              <p>按真实数据回答。建议口径：系统主要面向 <code>xx 类用户</code>，累计用户约 <code>X</code>，日活约 <code>X</code>，高峰集中在 <code>xx 时间段/xx 业务动作</code>。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="0" data-search="ml 公司 agent 使用量是多少？ 按真实数据回答。可以说：日均会话 `x`，agent 任务 `x`，工具调用 `x`，主要使用场景是 `知识问答/文档生成/业务办理`。">
+            <summary>
+              <span class="qa-number">12</span>
+              <span class="qa-title">Agent 使用量是多少？</span>
+            </summary>
+            <div class="answer">
+              <p>按真实数据回答。可以说：日均会话 <code>X</code>，Agent 任务 <code>X</code>，工具调用 <code>X</code>，主要使用场景是 <code>知识问答/文档生成/业务办理</code>。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="0" data-search="ml 公司 token 消耗量大概多少？ 按真实数据回答。建议分输入、输出、embedding、重排或长上下文任务说明，例如：日均约 `x tokens`，高峰约 `x`，其中 rag 检索上下文占比较高。">
+            <summary>
+              <span class="qa-number">13</span>
+              <span class="qa-title">Token 消耗量大概多少？</span>
+            </summary>
+            <div class="answer">
+              <p>按真实数据回答。建议分输入、输出、Embedding、重排或长上下文任务说明，例如：日均约 <code>X tokens</code>，高峰约 <code>X</code>，其中 RAG 检索上下文占比较高。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="0" data-search="ml 公司 有没有考虑怎么节约 ai 成本？ 有。成本优化主要从模型分层、缓存、prompt 压缩、rag 召回控制、上下文裁剪、批处理、失败重试控制和重复任务去重几个方向做。">
+            <summary>
+              <span class="qa-number">14</span>
+              <span class="qa-title">有没有考虑怎么节约 AI 成本？</span>
+            </summary>
+            <div class="answer">
+              <p>有。成本优化主要从模型分层、缓存、Prompt 压缩、RAG 召回控制、上下文裁剪、批处理、失败重试控制和重复任务去重几个方向做。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="0" data-search="ml 公司 做了哪些成本优化方案？ 常见方案包括：简单问题走小模型，复杂问题走大模型；embedding 和问答结果缓存；减少 topk 和无效上下文；对历史会话摘要压缩；工具调用结果复用；任务幂等和去重；监控单次会话 token 上限。">
+            <summary>
+              <span class="qa-number">15</span>
+              <span class="qa-title">做了哪些成本优化方案？</span>
+            </summary>
+            <div class="answer">
+              <p>常见方案包括：简单问题走小模型，复杂问题走大模型；Embedding 和问答结果缓存；减少 TopK 和无效上下文；对历史会话摘要压缩；工具调用结果复用；任务幂等和去重；监控单次会话 Token 上限。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="0" data-search="ml 公司 最终降了多少成本，收益多少？ 按真实数据回答。建议表达为：通过模型分层和缓存后，单次任务平均 token 降低 `x%`，模型调用成本降低 `x%`；收益可从人工处理时长下降、响应速度提升、用户自助解决率提升来说明。">
+            <summary>
+              <span class="qa-number">16</span>
+              <span class="qa-title">最终降了多少成本，收益多少？</span>
+            </summary>
+            <div class="answer">
+              <p>按真实数据回答。建议表达为：通过模型分层和缓存后，单次任务平均 Token 降低 <code>X%</code>，模型调用成本降低 <code>X%</code>；收益可从人工处理时长下降、响应速度提升、用户自助解决率提升来说明。</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="company-section" id="section-1" data-company-section="1">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Company</p>
+            <h2>KJ 公司</h2>
+          </div>
+          <span class="section-count">12 题</span>
+        </div>
+        <div class="qa-list">
+          
+          <details class="qa-item" data-qa data-section="1" data-search="kj 公司 claude code 的多层架构怎么做？ 可以按“交互层、任务规划层、上下文管理层、工具执行层、沙箱/权限层、模型调用层、日志监控层”来讲。核心是模型循环读取上下文，决定下一步工具调用，执行后把结果回灌，再继续规划。">
+            <summary>
+              <span class="qa-number">1</span>
+              <span class="qa-title">Claude Code 的多层架构怎么做？</span>
+            </summary>
+            <div class="answer">
+              <p>可以按“交互层、任务规划层、上下文管理层、工具执行层、沙箱/权限层、模型调用层、日志监控层”来讲。核心是模型循环读取上下文，决定下一步工具调用，执行后把结果回灌，再继续规划。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="1" data-search="kj 公司 ps 网页版实现方案？ 前端可以用 canvas/webgl 渲染画布，图层系统管理图片、文字、形状和滤镜；复杂图像处理可用 webassembly 或 webgl shader；状态管理维护历史栈、选区、缩放、拖拽和导出。">
+            <summary>
+              <span class="qa-number">2</span>
+              <span class="qa-title">PS 网页版实现方案？</span>
+            </summary>
+            <div class="answer">
+              <p>前端可以用 Canvas/WebGL 渲染画布，图层系统管理图片、文字、形状和滤镜；复杂图像处理可用 WebAssembly 或 WebGL Shader；状态管理维护历史栈、选区、缩放、拖拽和导出。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="1" data-search="kj 公司 canvas 无限画布怎么实现？ 本质是维护一个世界坐标系，通过相机偏移和缩放把世界坐标映射到屏幕坐标。只渲染视口内元素，配合空间索引、分层缓存、离屏 canvas 和事件坐标反算优化性能。">
+            <summary>
+              <span class="qa-number">3</span>
+              <span class="qa-title">Canvas 无限画布怎么实现？</span>
+            </summary>
+            <div class="answer">
+              <p>本质是维护一个世界坐标系，通过相机偏移和缩放把世界坐标映射到屏幕坐标。只渲染视口内元素，配合空间索引、分层缓存、离屏 Canvas 和事件坐标反算优化性能。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="1" data-search="kj 公司 webassembly 了解吗？ webassembly 是浏览器里的高性能二进制执行格式，适合把 c/c++/rust 的图像处理、音视频、压缩、加密等计算密集逻辑迁到前端运行。">
+            <summary>
+              <span class="qa-number">4</span>
+              <span class="qa-title">WebAssembly 了解吗？</span>
+            </summary>
+            <div class="answer">
+              <p>WebAssembly 是浏览器里的高性能二进制执行格式，适合把 C/C++/Rust 的图像处理、音视频、压缩、加密等计算密集逻辑迁到前端运行。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="1" data-search="kj 公司 docker 和 k8s 的关系？ docker 负责镜像构建和容器运行，k8s 负责容器编排、调度、服务发现、扩缩容、滚动发布和故障恢复。简单说 docker 是容器能力，k8s 是大规模管理容器的平台。">
+            <summary>
+              <span class="qa-number">5</span>
+              <span class="qa-title">Docker 和 K8S 的关系？</span>
+            </summary>
+            <div class="answer">
+              <p>Docker 负责镜像构建和容器运行，K8S 负责容器编排、调度、服务发现、扩缩容、滚动发布和故障恢复。简单说 Docker 是容器能力，K8S 是大规模管理容器的平台。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="1" data-search="kj 公司 容器和镜像关系，怎么挂载？ 镜像是只读模板，容器是镜像运行后的实例。挂载可以用 bind mount、volume、configmap、secret 等方式，把宿主机目录或外部存储映射到容器路径。">
+            <summary>
+              <span class="qa-number">6</span>
+              <span class="qa-title">容器和镜像关系，怎么挂载？</span>
+            </summary>
+            <div class="answer">
+              <p>镜像是只读模板，容器是镜像运行后的实例。挂载可以用 bind mount、volume、ConfigMap、Secret 等方式，把宿主机目录或外部存储映射到容器路径。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="1" data-search="kj 公司 k8s 多个服务怎么通讯？ 同集群内通常通过 service 名称做 dns 访问，比如 `http://user-service.namespace.svc.cluster.local`。服务间可以通过 clusterip、headless service、ingress、service mesh 等方式通信。">
+            <summary>
+              <span class="qa-number">7</span>
+              <span class="qa-title">K8S 多个服务怎么通讯？</span>
+            </summary>
+            <div class="answer">
+              <p>同集群内通常通过 Service 名称做 DNS 访问，比如 <code>http://user-service.namespace.svc.cluster.local</code>。服务间可以通过 ClusterIP、Headless Service、Ingress、Service Mesh 等方式通信。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="1" data-search="kj 公司 怎么进行团队管理？ 先拆清目标、边界和优先级，再把任务拆成里程碑和负责人。过程里关注风险、依赖、代码质量和沟通节奏，用周会/看板/评审保证信息透明。">
+            <summary>
+              <span class="qa-number">8</span>
+              <span class="qa-title">怎么进行团队管理？</span>
+            </summary>
+            <div class="answer">
+              <p>先拆清目标、边界和优先级，再把任务拆成里程碑和负责人。过程里关注风险、依赖、代码质量和沟通节奏，用周会/看板/评审保证信息透明。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="1" data-search="kj 公司 怎么推动项目进度？ 我会先明确交付标准和关键路径，然后拆任务、定排期、识别阻塞点。推进中每天跟进风险，对跨团队依赖提前沟通，必要时做范围裁剪保证核心目标上线。">
+            <summary>
+              <span class="qa-number">9</span>
+              <span class="qa-title">怎么推动项目进度？</span>
+            </summary>
+            <div class="answer">
+              <p>我会先明确交付标准和关键路径，然后拆任务、定排期、识别阻塞点。推进中每天跟进风险，对跨团队依赖提前沟通，必要时做范围裁剪保证核心目标上线。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="1" data-search="kj 公司 express 底层原理？如果设计怎么做？ express 核心是基于 node http 模块封装请求响应对象，再通过中间件栈按顺序匹配和执行。自己实现时会设计路由表、中间件队列、`next()` 调度、错误中间件和请求上下文。">
+            <summary>
+              <span class="qa-number">10</span>
+              <span class="qa-title">Express 底层原理？如果设计怎么做？</span>
+            </summary>
+            <div class="answer">
+              <p>Express 核心是基于 Node HTTP 模块封装请求响应对象，再通过中间件栈按顺序匹配和执行。自己实现时会设计路由表、中间件队列、<code>next()</code> 调度、错误中间件和请求上下文。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="1" data-search="kj 公司 入职后如何快速上手业务需求？ 先读业务文档和核心流程，再跑通本地环境和主链路；接着看数据库表、接口、日志和线上监控。前几天优先修小需求或 bug 建立手感，再逐步承担核心模块。">
+            <summary>
+              <span class="qa-number">11</span>
+              <span class="qa-title">入职后如何快速上手业务需求？</span>
+            </summary>
+            <div class="answer">
+              <p>先读业务文档和核心流程，再跑通本地环境和主链路；接着看数据库表、接口、日志和线上监控。前几天优先修小需求或 Bug 建立手感，再逐步承担核心模块。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="1" data-search="kj 公司 职业中比较有挑战性的问题？ 可以选一个真实项目讲：比如 ai 系统从 0 到 1 落地、rag 召回准确率提升、长任务稳定性、性能优化或跨团队推进。回答重点放在问题背景、你的判断、具体动作和结果。">
+            <summary>
+              <span class="qa-number">12</span>
+              <span class="qa-title">职业中比较有挑战性的问题？</span>
+            </summary>
+            <div class="answer">
+              <p>可以选一个真实项目讲：比如 AI 系统从 0 到 1 落地、RAG 召回准确率提升、长任务稳定性、性能优化或跨团队推进。回答重点放在问题背景、你的判断、具体动作和结果。</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="company-section" id="section-2" data-company-section="2">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Company</p>
+            <h2>JR 公司</h2>
+          </div>
+          <span class="section-count">16 题</span>
+        </div>
+        <div class="qa-list">
+          
+          <details class="qa-item" data-qa data-section="2" data-search="jr 公司 ai 项目架构情况？ 可以按入口层、业务编排层、ai 能力层、知识库层、工具服务层、数据存储层和监控评估层来讲。请求进入后先做鉴权和意图识别，再选择 rag、agent 或普通模型问答链路。">
+            <summary>
+              <span class="qa-number">1</span>
+              <span class="qa-title">AI 项目架构情况？</span>
+            </summary>
+            <div class="answer">
+              <p>可以按入口层、业务编排层、AI 能力层、知识库层、工具服务层、数据存储层和监控评估层来讲。请求进入后先做鉴权和意图识别，再选择 RAG、Agent 或普通模型问答链路。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="2" data-search="jr 公司 为什么选择 langchain、langgraph？ langchain 生态成熟，适合快速接入模型、prompt、工具和 rag；langgraph 适合有状态、多分支、可循环的 agent 工作流。选型依据是开发效率、可扩展性、社区成熟度和复杂任务编排能力。">
+            <summary>
+              <span class="qa-number">2</span>
+              <span class="qa-title">为什么选择 LangChain、LangGraph？</span>
+            </summary>
+            <div class="answer">
+              <p>LangChain 生态成熟，适合快速接入模型、Prompt、工具和 RAG；LangGraph 适合有状态、多分支、可循环的 Agent 工作流。选型依据是开发效率、可扩展性、社区成熟度和复杂任务编排能力。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="2" data-search="jr 公司 抽象通用 ai 能力模块做了什么？ 一般会抽象模型调用、prompt 模板、工具注册、rag 检索、会话上下文、流式输出、错误重试、日志埋点、成本统计和权限控制，业务只需要组合这些能力。">
+            <summary>
+              <span class="qa-number">3</span>
+              <span class="qa-title">抽象通用 AI 能力模块做了什么？</span>
+            </summary>
+            <div class="answer">
+              <p>一般会抽象模型调用、Prompt 模板、工具注册、RAG 检索、会话上下文、流式输出、错误重试、日志埋点、成本统计和权限控制，业务只需要组合这些能力。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="2" data-search="jr 公司 ai 调用工具失败怎么解决？ 先区分是参数错误、权限错误、工具超时、服务异常还是模型选择错误工具。工程上会做参数 schema 校验、重试、降级、错误反馈给模型重新规划、人工兜底和详细日志。">
+            <summary>
+              <span class="qa-number">4</span>
+              <span class="qa-title">AI 调用工具失败怎么解决？</span>
+            </summary>
+            <div class="answer">
+              <p>先区分是参数错误、权限错误、工具超时、服务异常还是模型选择错误工具。工程上会做参数 schema 校验、重试、降级、错误反馈给模型重新规划、人工兜底和详细日志。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="2" data-search="jr 公司 rag 流程？ 文档解析后切分成 chunk，做清洗、元数据标注和 embedding 入库；用户提问时做查询改写/向量化，召回相关片段，必要时重排，然后把上下文拼进 prompt 生成答案并附来源。">
+            <summary>
+              <span class="qa-number">5</span>
+              <span class="qa-title">RAG 流程？</span>
+            </summary>
+            <div class="answer">
+              <p>文档解析后切分成 chunk，做清洗、元数据标注和 Embedding 入库；用户提问时做查询改写/向量化，召回相关片段，必要时重排，然后把上下文拼进 Prompt 生成答案并附来源。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="2" data-search="jr 公司 怎么加速 rag 检索？ 可以用向量索引、topk 控制、元数据过滤、分库分集合、缓存热门 query、异步预处理、混合检索和重排分层。大规模时还要优化 chunk 粒度和索引参数。">
+            <summary>
+              <span class="qa-number">6</span>
+              <span class="qa-title">怎么加速 RAG 检索？</span>
+            </summary>
+            <div class="answer">
+              <p>可以用向量索引、TopK 控制、元数据过滤、分库分集合、缓存热门 Query、异步预处理、混合检索和重排分层。大规模时还要优化 chunk 粒度和索引参数。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="2" data-search="jr 公司 向量库数据量？ 按真实数据回答。建议说清楚文档数量、chunk 数量、向量维度和增量更新频率。">
+            <summary>
+              <span class="qa-number">7</span>
+              <span class="qa-title">向量库数据量？</span>
+            </summary>
+            <div class="answer">
+              <p>按真实数据回答。建议说清楚文档数量、chunk 数量、向量维度和增量更新频率。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="2" data-search="jr 公司 向量库用什么，选型依据？ 常见选择有 milvus、pgvector、elasticsearch/opensearch、chroma、qdrant。依据包括数据规模、过滤能力、部署成本、混合检索能力、团队运维经验和与现有数据库的集成。">
+            <summary>
+              <span class="qa-number">8</span>
+              <span class="qa-title">向量库用什么，选型依据？</span>
+            </summary>
+            <div class="answer">
+              <p>常见选择有 Milvus、pgvector、Elasticsearch/OpenSearch、Chroma、Qdrant。依据包括数据规模、过滤能力、部署成本、混合检索能力、团队运维经验和与现有数据库的集成。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="2" data-search="jr 公司 大模型选型逻辑？ 从效果、成本、延迟、上下文长度、工具调用能力、结构化输出、数据合规和稳定性评估。通常采用模型分层：简单任务小模型，复杂推理或生成任务大模型。">
+            <summary>
+              <span class="qa-number">9</span>
+              <span class="qa-title">大模型选型逻辑？</span>
+            </summary>
+            <div class="answer">
+              <p>从效果、成本、延迟、上下文长度、工具调用能力、结构化输出、数据合规和稳定性评估。通常采用模型分层：简单任务小模型，复杂推理或生成任务大模型。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="2" data-search="jr 公司 政策文件场景怎么确认召回准确性？ 需要保留来源、文件名、条款编号、发布时间等元数据；召回后做重排和引用校验。评估上可以建标准问答集，统计召回率、命中率、答案引用准确率，并加入人工抽检。">
+            <summary>
+              <span class="qa-number">10</span>
+              <span class="qa-title">政策文件场景怎么确认召回准确性？</span>
+            </summary>
+            <div class="answer">
+              <p>需要保留来源、文件名、条款编号、发布时间等元数据；召回后做重排和引用校验。评估上可以建标准问答集，统计召回率、命中率、答案引用准确率，并加入人工抽检。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="2" data-search="jr 公司 上下文压缩策略？ 常用策略是历史会话摘要、按轮次保留最近上下文、按重要性提取关键信息、工具结果结构化缓存、rag 片段去重和长度预算控制。">
+            <summary>
+              <span class="qa-number">11</span>
+              <span class="qa-title">上下文压缩策略？</span>
+            </summary>
+            <div class="answer">
+              <p>常用策略是历史会话摘要、按轮次保留最近上下文、按重要性提取关键信息、工具结果结构化缓存、RAG 片段去重和长度预算控制。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="2" data-search="jr 公司 压缩质量有问题怎么解决？ 可以加结构化摘要模板、关键信息字段校验、保留原文索引、重要内容不压缩、用更强模型做压缩，或在回答前做压缩结果校验。关键业务场景要允许回查原始上下文。">
+            <summary>
+              <span class="qa-number">12</span>
+              <span class="qa-title">压缩质量有问题怎么解决？</span>
+            </summary>
+            <div class="answer">
+              <p>可以加结构化摘要模板、关键信息字段校验、保留原文索引、重要内容不压缩、用更强模型做压缩，或在回答前做压缩结果校验。关键业务场景要允许回查原始上下文。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="2" data-search="jr 公司 claude code 泄露事件 / 源码研究？ 可以谨慎回答：关注过相关讨论，但不会依赖非官方泄露内容。更关注公开可验证的架构思想，比如上下文治理、工具权限、执行循环和沙箱安全。">
+            <summary>
+              <span class="qa-number">13</span>
+              <span class="qa-title">Claude Code 泄露事件 / 源码研究？</span>
+            </summary>
+            <div class="answer">
+              <p>可以谨慎回答：关注过相关讨论，但不会依赖非官方泄露内容。更关注公开可验证的架构思想，比如上下文治理、工具权限、执行循环和沙箱安全。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="2" data-search="jr 公司 claude code 上下文治理？ 核心是把用户指令、项目文件、工具结果、历史摘要和系统约束分层管理，并控制进入模型的上下文预算。它会按相关性选择文件和历史，不是简单把全部内容塞进去。">
+            <summary>
+              <span class="qa-number">14</span>
+              <span class="qa-title">Claude Code 上下文治理？</span>
+            </summary>
+            <div class="answer">
+              <p>核心是把用户指令、项目文件、工具结果、历史摘要和系统约束分层管理，并控制进入模型的上下文预算。它会按相关性选择文件和历史，不是简单把全部内容塞进去。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="2" data-search="jr 公司 claude code 核心循环流程？ 用户提出目标后，模型读取上下文并规划下一步；选择工具读取文件、搜索、编辑或执行命令；工具结果返回后模型继续判断，直到完成目标或遇到阻塞。">
+            <summary>
+              <span class="qa-number">15</span>
+              <span class="qa-title">Claude Code 核心循环流程？</span>
+            </summary>
+            <div class="answer">
+              <p>用户提出目标后，模型读取上下文并规划下一步；选择工具读取文件、搜索、编辑或执行命令；工具结果返回后模型继续判断，直到完成目标或遇到阻塞。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="2" data-search="jr 公司 多租户 k8s 怎么部署，一个租户一个 pod 吗？ 不一定。小规模可以共享服务，通过租户 id 做数据隔离；高隔离要求可以按租户 namespace、独立数据库、独立实例或独立 pod。选择取决于安全、成本、资源隔离和运维复杂度。">
+            <summary>
+              <span class="qa-number">16</span>
+              <span class="qa-title">多租户 K8S 怎么部署，一个租户一个 Pod 吗？</span>
+            </summary>
+            <div class="answer">
+              <p>不一定。小规模可以共享服务，通过租户 ID 做数据隔离；高隔离要求可以按租户 namespace、独立数据库、独立实例或独立 Pod。选择取决于安全、成本、资源隔离和运维复杂度。</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="company-section" id="section-3" data-company-section="3">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Company</p>
+            <h2>TK 公司</h2>
+          </div>
+          <span class="section-count">10 题</span>
+        </div>
+        <div class="qa-list">
+          
+          <details class="qa-item" data-qa data-section="3" data-search="tk 公司 企微 h5 登录流程？ 前端跳转企业微信 oauth 授权页，带 `appid`、`redirect_uri`、`scope`、`state`；回调拿到 `code` 后给后端，后端用 code 换取用户身份，再生成业务 token 返回前端。">
+            <summary>
+              <span class="qa-number">1</span>
+              <span class="qa-title">企微 H5 登录流程？</span>
+            </summary>
+            <div class="answer">
+              <p>前端跳转企业微信 OAuth 授权页，带 <code>appid</code>、<code>redirect_uri</code>、<code>scope</code>、<code>state</code>；回调拿到 <code>code</code> 后给后端，后端用 code 换取用户身份，再生成业务 token 返回前端。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="3" data-search="tk 公司 企微只能绑定两个域名，多个业务域名怎么处理？ 可以统一用一个授权中转域名做 oauth 回调，再根据 `state` 或业务参数跳回实际业务域名。也可以通过网关/反向代理统一入口。">
+            <summary>
+              <span class="qa-number">2</span>
+              <span class="qa-title">企微只能绑定两个域名，多个业务域名怎么处理？</span>
+            </summary>
+            <div class="answer">
+              <p>可以统一用一个授权中转域名做 OAuth 回调，再根据 <code>state</code> 或业务参数跳回实际业务域名。也可以通过网关/反向代理统一入口。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="3" data-search="tk 公司 没有设计稿怎么推进？ 先确认用户目标、核心流程和字段，再快速画低保真原型或可交互 demo 给业务确认。实现时优先复用现有组件库，保证交互一致，避免陷入视觉细节。">
+            <summary>
+              <span class="qa-number">3</span>
+              <span class="qa-title">没有设计稿怎么推进？</span>
+            </summary>
+            <div class="answer">
+              <p>先确认用户目标、核心流程和字段，再快速画低保真原型或可交互 Demo 给业务确认。实现时优先复用现有组件库，保证交互一致，避免陷入视觉细节。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="3" data-search="tk 公司 做过 h5 用户打标签吗？ 可以通过用户行为、来源渠道、企微身份、表单选择、浏览路径等维度打标签。标签一般写入用户画像表或埋点系统，用于运营分群和后续触达。">
+            <summary>
+              <span class="qa-number">4</span>
+              <span class="qa-title">做过 H5 用户打标签吗？</span>
+            </summary>
+            <div class="answer">
+              <p>可以通过用户行为、来源渠道、企微身份、表单选择、浏览路径等维度打标签。标签一般写入用户画像表或埋点系统，用于运营分群和后续触达。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="3" data-search="tk 公司 用户进入页面后怎么获取唯一 id？ 登录态下使用业务用户 id 或企微 userid；未登录时可以用设备指纹、匿名 id、cookie/localstorage 生成临时 id，登录后再做匿名 id 和用户 id 绑定。">
+            <summary>
+              <span class="qa-number">5</span>
+              <span class="qa-title">用户进入页面后怎么获取唯一 ID？</span>
+            </summary>
+            <div class="answer">
+              <p>登录态下使用业务用户 ID 或企微 userId；未登录时可以用设备指纹、匿名 ID、cookie/localStorage 生成临时 ID，登录后再做匿名 ID 和用户 ID 绑定。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="3" data-search="tk 公司 企微回调里的 id 同步怎么做？ 后端拿到企微 userid/open_userid 后，与业务用户表建立映射关系。如果用户未注册，则创建或进入绑定流程；已存在则更新企微信息和最后登录时间。">
+            <summary>
+              <span class="qa-number">6</span>
+              <span class="qa-title">企微回调里的 ID 同步怎么做？</span>
+            </summary>
+            <div class="answer">
+              <p>后端拿到企微 userId/open_userid 后，与业务用户表建立映射关系。如果用户未注册，则创建或进入绑定流程；已存在则更新企微信息和最后登录时间。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="3" data-search="tk 公司 埋点怎么做，获取哪些数据？ 埋点分曝光、点击、提交、停留、错误和性能。字段包括用户 id、页面、事件名、时间、渠道、设备、业务参数、会话 id 等，敏感信息要脱敏。">
+            <summary>
+              <span class="qa-number">7</span>
+              <span class="qa-title">埋点怎么做，获取哪些数据？</span>
+            </summary>
+            <div class="answer">
+              <p>埋点分曝光、点击、提交、停留、错误和性能。字段包括用户 ID、页面、事件名、时间、渠道、设备、业务参数、会话 ID 等，敏感信息要脱敏。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="3" data-search="tk 公司 rag 检索怎么做？ 文档切分入库后，问题经过改写和向量化，先做向量召回或混合检索，再按相似度、业务标签、时间、权限过滤，最后重排并交给模型生成答案。">
+            <summary>
+              <span class="qa-number">8</span>
+              <span class="qa-title">RAG 检索怎么做？</span>
+            </summary>
+            <div class="answer">
+              <p>文档切分入库后，问题经过改写和向量化，先做向量召回或混合检索，再按相似度、业务标签、时间、权限过滤，最后重排并交给模型生成答案。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="3" data-search="tk 公司 海豚同步 mysql io 爆红怎么排查？ 先看是源库读 io 还是目标库写 io，高峰是否和调度时间重合；检查三表 join 是否走索引、是否全表扫描、批量大小、事务大小、目标表索引过多、磁盘和 binlog 压力。优化可做增量同步、分页批量、加索引、拆任务、降低并发、错峰执行、先落临时表再合并。">
+            <summary>
+              <span class="qa-number">9</span>
+              <span class="qa-title">海豚同步 MySQL IO 爆红怎么排查？</span>
+            </summary>
+            <div class="answer">
+              <p>先看是源库读 IO 还是目标库写 IO，高峰是否和调度时间重合；检查三表 Join 是否走索引、是否全表扫描、批量大小、事务大小、目标表索引过多、磁盘和 binlog 压力。优化可做增量同步、分页批量、加索引、拆任务、降低并发、错峰执行、先落临时表再合并。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="3" data-search="tk 公司 mysql 大表慢插入怎么优化？ 检查索引数量、唯一约束、事务大小、磁盘 io、锁等待和自增主键热点。方案包括批量插入、减少不必要索引、分区/分表、异步队列削峰、冷热数据拆分、调整参数和归档历史数据。">
+            <summary>
+              <span class="qa-number">10</span>
+              <span class="qa-title">MySQL 大表慢插入怎么优化？</span>
+            </summary>
+            <div class="answer">
+              <p>检查索引数量、唯一约束、事务大小、磁盘 IO、锁等待和自增主键热点。方案包括批量插入、减少不必要索引、分区/分表、异步队列削峰、冷热数据拆分、调整参数和归档历史数据。</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="company-section" id="section-4" data-company-section="4">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Company</p>
+            <h2>YC 公司</h2>
+          </div>
+          <span class="section-count">10 题</span>
+        </div>
+        <div class="qa-list">
+          
+          <details class="qa-item" data-qa data-section="4" data-search="yc 公司 数据库和缓存一致性？ 常用策略是先更新数据库，再删除缓存；读请求缓存未命中再回源数据库并回填。对强一致要求高的场景可加消息队列重试、延迟双删、版本号或 canal 订阅 binlog。">
+            <summary>
+              <span class="qa-number">1</span>
+              <span class="qa-title">数据库和缓存一致性？</span>
+            </summary>
+            <div class="answer">
+              <p>常用策略是先更新数据库，再删除缓存；读请求缓存未命中再回源数据库并回填。对强一致要求高的场景可加消息队列重试、延迟双删、版本号或 Canal 订阅 binlog。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="4" data-search="yc 公司 从 0 到 1 搭建项目怎么设计架构？ 先明确业务边界、用户角色、核心流程和非功能指标，再设计模块、数据模型、接口协议、权限、日志、部署和监控。初期避免过度设计，但保留扩展点。">
+            <summary>
+              <span class="qa-number">2</span>
+              <span class="qa-title">从 0 到 1 搭建项目怎么设计架构？</span>
+            </summary>
+            <div class="answer">
+              <p>先明确业务边界、用户角色、核心流程和非功能指标，再设计模块、数据模型、接口协议、权限、日志、部署和监控。初期避免过度设计，但保留扩展点。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="4" data-search="yc 公司 ai 系统架构分哪些层？ 可以分为接入层、业务层、ai 编排层、模型适配层、知识库层、工具层、数据层、观测与治理层。">
+            <summary>
+              <span class="qa-number">3</span>
+              <span class="qa-title">AI 系统架构分哪些层？</span>
+            </summary>
+            <div class="answer">
+              <p>可以分为接入层、业务层、AI 编排层、模型适配层、知识库层、工具层、数据层、观测与治理层。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="4" data-search="yc 公司 门店 ai 数字化系统怎么设计？ 场景包括门店问答、员工助手、销售话术、库存查询、客户画像、报表分析和工单处理。架构上接入 pos/crm/库存/会员系统，用 rag 处理制度和知识，用 agent 调工具完成业务动作。">
+            <summary>
+              <span class="qa-number">4</span>
+              <span class="qa-title">门店 AI 数字化系统怎么设计？</span>
+            </summary>
+            <div class="answer">
+              <p>场景包括门店问答、员工助手、销售话术、库存查询、客户画像、报表分析和工单处理。架构上接入 POS/CRM/库存/会员系统，用 RAG 处理制度和知识，用 Agent 调工具完成业务动作。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="4" data-search="yc 公司 技术架构、模块、数据流、选型？ 前端可用 vue/react，后端用 nestjs/java/spring，数据用 mysql/redis/es/向量库，ai 用模型网关统一适配。数据从业务系统同步到数据层和知识库，用户请求经过权限、意图识别、检索和工具调用后返回结果。">
+            <summary>
+              <span class="qa-number">5</span>
+              <span class="qa-title">技术架构、模块、数据流、选型？</span>
+            </summary>
+            <div class="answer">
+              <p>前端可用 Vue/React，后端用 NestJS/Java/Spring，数据用 MySQL/Redis/ES/向量库，AI 用模型网关统一适配。数据从业务系统同步到数据层和知识库，用户请求经过权限、意图识别、检索和工具调用后返回结果。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="4" data-search="yc 公司 ai 对研发工作流冲击，团队有没有 ai 工作流？ 有。需求阶段用 ai 辅助梳理 prd 和边界，设计阶段生成方案和接口草稿，开发阶段辅助编码和单测，评审阶段让 ai 做初步代码检查，测试阶段生成用例和自动化脚本。">
+            <summary>
+              <span class="qa-number">6</span>
+              <span class="qa-title">AI 对研发工作流冲击，团队有没有 AI 工作流？</span>
+            </summary>
+            <div class="answer">
+              <p>有。需求阶段用 AI 辅助梳理 PRD 和边界，设计阶段生成方案和接口草稿，开发阶段辅助编码和单测，评审阶段让 AI 做初步代码检查，测试阶段生成用例和自动化脚本。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="4" data-search="yc 公司 如何把 ai 融入开发流程？ 把 ai 放进需求分析、技术方案、代码生成、重构、测试、文档和排障流程，但关键决策、架构边界、安全和代码合并仍由开发负责。">
+            <summary>
+              <span class="qa-number">7</span>
+              <span class="qa-title">如何把 AI 融入开发流程？</span>
+            </summary>
+            <div class="answer">
+              <p>把 AI 放进需求分析、技术方案、代码生成、重构、测试、文档和排障流程，但关键决策、架构边界、安全和代码合并仍由开发负责。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="4" data-search="yc 公司 有 ai 编程规范吗？ 可以建立规范：ai 生成代码必须可解释、可测试、符合项目风格；不能直接提交未审查代码；涉及安全、权限、支付、数据迁移必须人工复核。">
+            <summary>
+              <span class="qa-number">8</span>
+              <span class="qa-title">有 AI 编程规范吗？</span>
+            </summary>
+            <div class="answer">
+              <p>可以建立规范：AI 生成代码必须可解释、可测试、符合项目风格；不能直接提交未审查代码；涉及安全、权限、支付、数据迁移必须人工复核。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="4" data-search="yc 公司 ai 写的代码不可控，code review 怎么做？ ai 代码和人工代码一样走 pr、review、ci、单测和静态检查。重点看边界条件、异常处理、安全、性能、依赖引入和是否破坏现有架构。">
+            <summary>
+              <span class="qa-number">9</span>
+              <span class="qa-title">AI 写的代码不可控，Code Review 怎么做？</span>
+            </summary>
+            <div class="answer">
+              <p>AI 代码和人工代码一样走 PR、Review、CI、单测和静态检查。重点看边界条件、异常处理、安全、性能、依赖引入和是否破坏现有架构。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="4" data-search="yc 公司 sse 断线续传怎么做？ 服务端给每条事件带 `id`，客户端断线重连时通过 `last-event-id` 或自定义参数告诉服务端上次收到的位置。服务端需要保存一段时间的消息缓冲或任务状态，重新连接后从断点继续推送。">
+            <summary>
+              <span class="qa-number">10</span>
+              <span class="qa-title">SSE 断线续传怎么做？</span>
+            </summary>
+            <div class="answer">
+              <p>服务端给每条事件带 <code>id</code>，客户端断线重连时通过 <code>Last-Event-ID</code> 或自定义参数告诉服务端上次收到的位置。服务端需要保存一段时间的消息缓冲或任务状态，重新连接后从断点继续推送。</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="company-section" id="section-5" data-company-section="5">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Company</p>
+            <h2>HJ 公司</h2>
+          </div>
+          <span class="section-count">15 题</span>
+        </div>
+        <div class="qa-list">
+          
+          <details class="qa-item" data-qa data-section="5" data-search="hj 公司 个人一个月 token 使用量？ 按真实数据回答。可以分“编码助手、文档分析、项目规划、调试”几个场景说明，例如每月约 `x` tokens 或费用约 `x`。">
+            <summary>
+              <span class="qa-number">1</span>
+              <span class="qa-title">个人一个月 Token 使用量？</span>
+            </summary>
+            <div class="answer">
+              <p>按真实数据回答。可以分“编码助手、文档分析、项目规划、调试”几个场景说明，例如每月约 <code>X</code> tokens 或费用约 <code>X</code>。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="5" data-search="hj 公司 政府项目只能用国内工具影响？ 有影响但可控。主要影响是模型效果、工具生态、上下文长度和稳定性差异；工程上可以通过模型适配层、私有化部署、国产模型评测和 prompt 优化降低影响。">
+            <summary>
+              <span class="qa-number">2</span>
+              <span class="qa-title">政府项目只能用国内工具影响？</span>
+            </summary>
+            <div class="answer">
+              <p>有影响但可控。主要影响是模型效果、工具生态、上下文长度和稳定性差异；工程上可以通过模型适配层、私有化部署、国产模型评测和 Prompt 优化降低影响。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="5" data-search="hj 公司 国内外 ai 工具/模型对比？ 可以从代码能力、中文理解、长上下文、工具调用、成本、稳定性、合规和私有化能力对比。国外模型综合能力强，国内模型在中文、合规、私有化和成本上更适合部分政企场景。">
+            <summary>
+              <span class="qa-number">3</span>
+              <span class="qa-title">国内外 AI 工具/模型对比？</span>
+            </summary>
+            <div class="answer">
+              <p>可以从代码能力、中文理解、长上下文、工具调用、成本、稳定性、合规和私有化能力对比。国外模型综合能力强，国内模型在中文、合规、私有化和成本上更适合部分政企场景。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="5" data-search="hj 公司 同模型不同工具/同工具不同模型效果差异？ 有差异。同模型在不同工具中受系统 prompt、上下文检索、工具权限和交互设计影响；同工具切换模型则会影响推理、代码质量、结构化输出和稳定性。">
+            <summary>
+              <span class="qa-number">4</span>
+              <span class="qa-title">同模型不同工具/同工具不同模型效果差异？</span>
+            </summary>
+            <div class="answer">
+              <p>有差异。同模型在不同工具中受系统 Prompt、上下文检索、工具权限和交互设计影响；同工具切换模型则会影响推理、代码质量、结构化输出和稳定性。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="5" data-search="hj 公司 ai 提效百分比？ 按实际经验回答。一般简单 crud、文档、测试用例可提升 30%-60%；复杂架构和疑难问题提升较小，可能 10%-30%，因为仍需要人工判断。">
+            <summary>
+              <span class="qa-number">5</span>
+              <span class="qa-title">AI 提效百分比？</span>
+            </summary>
+            <div class="answer">
+              <p>按实际经验回答。一般简单 CRUD、文档、测试用例可提升 30%-60%；复杂架构和疑难问题提升较小，可能 10%-30%，因为仍需要人工判断。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="5" data-search="hj 公司 用什么 ai 工具完成规划、草图、文档和开发？ 规划和文档可用 chatgpt/claude/国内大模型，开发用 codex/cursor/claude code，草图可用 figma ai、即时设计或低代码原型工具，测试可用 playwright 加 ai 辅助生成用例。">
+            <summary>
+              <span class="qa-number">6</span>
+              <span class="qa-title">用什么 AI 工具完成规划、草图、文档和开发？</span>
+            </summary>
+            <div class="answer">
+              <p>规划和文档可用 ChatGPT/Claude/国内大模型，开发用 Codex/Cursor/Claude Code，草图可用 Figma AI、即时设计或低代码原型工具，测试可用 Playwright 加 AI 辅助生成用例。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="5" data-search="hj 公司 搭框架整体思路？ 先确定业务边界和技术约束，再定前后端框架、目录规范、权限、路由、状态管理、接口规范、日志、错误处理、测试、ci/cd 和部署方式。框架要服务团队协作，而不是堆技术。">
+            <summary>
+              <span class="qa-number">7</span>
+              <span class="qa-title">搭框架整体思路？</span>
+            </summary>
+            <div class="answer">
+              <p>先确定业务边界和技术约束，再定前后端框架、目录规范、权限、路由、状态管理、接口规范、日志、错误处理、测试、CI/CD 和部署方式。框架要服务团队协作，而不是堆技术。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="5" data-search="hj 公司 传统业务系统后端分几层？ 通常分 controller/api 层、service 业务层、domain/领域层、repository/dao 数据访问层、infrastructure 基础设施层。">
+            <summary>
+              <span class="qa-number">8</span>
+              <span class="qa-title">传统业务系统后端分几层？</span>
+            </summary>
+            <div class="answer">
+              <p>通常分 Controller/API 层、Service 业务层、Domain/领域层、Repository/DAO 数据访问层、Infrastructure 基础设施层。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="5" data-search="hj 公司 最大并发和部署在哪里？ 按真实数据回答。建议说清 qps、在线人数、高峰场景、部署环境和扩容方式，如云服务器/k8s/负载均衡/redis/mysql。">
+            <summary>
+              <span class="qa-number">9</span>
+              <span class="qa-title">最大并发和部署在哪里？</span>
+            </summary>
+            <div class="answer">
+              <p>按真实数据回答。建议说清 QPS、在线人数、高峰场景、部署环境和扩容方式，如云服务器/K8S/负载均衡/Redis/MySQL。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="5" data-search="hj 公司 熔断、限流、缓存、异步队列？ 做过的话按项目讲。常见方案：网关限流、接口防刷、redis 缓存热点数据、队列削峰、超时重试、降级兜底、服务熔断和监控告警。">
+            <summary>
+              <span class="qa-number">10</span>
+              <span class="qa-title">熔断、限流、缓存、异步队列？</span>
+            </summary>
+            <div class="answer">
+              <p>做过的话按项目讲。常见方案：网关限流、接口防刷、Redis 缓存热点数据、队列削峰、超时重试、降级兜底、服务熔断和监控告警。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="5" data-search="hj 公司 没有测试岗怎么测试？ 开发自测加测试清单，关键接口写单测/集成测试，前端用 playwright 做核心流程自动化，发布前走冒烟测试和灰度验证。">
+            <summary>
+              <span class="qa-number">11</span>
+              <span class="qa-title">没有测试岗怎么测试？</span>
+            </summary>
+            <div class="answer">
+              <p>开发自测加测试清单，关键接口写单测/集成测试，前端用 Playwright 做核心流程自动化，发布前走冒烟测试和灰度验证。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="5" data-search="hj 公司 ai 界面测试能否覆盖点击输入提交？ 可以辅助。ai 可生成测试用例和 playwright 脚本，也能根据页面截图定位问题；但稳定回归仍应依赖确定性的自动化脚本。">
+            <summary>
+              <span class="qa-number">12</span>
+              <span class="qa-title">AI 界面测试能否覆盖点击输入提交？</span>
+            </summary>
+            <div class="answer">
+              <p>可以辅助。AI 可生成测试用例和 Playwright 脚本，也能根据页面截图定位问题；但稳定回归仍应依赖确定性的自动化脚本。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="5" data-search="hj 公司 职业规划？ 可以回答：短期提升全栈和 ai 工程落地能力，中期往技术负责人/架构方向发展。会结合公司战略，但也希望岗位能匹配自己在 ai 应用、工程架构和团队协作上的积累。">
+            <summary>
+              <span class="qa-number">13</span>
+              <span class="qa-title">职业规划？</span>
+            </summary>
+            <div class="answer">
+              <p>可以回答：短期提升全栈和 AI 工程落地能力，中期往技术负责人/架构方向发展。会结合公司战略，但也希望岗位能匹配自己在 AI 应用、工程架构和团队协作上的积累。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="5" data-search="hj 公司 政府项目 50 万一个月交付怎么拆？ 先冻结需求范围，拆 mvp、关键页面、接口、权限、部署和验收标准；第一周原型和架构，第二三周开发联调，第四周测试验收。多端可优先复用 h5/小程序技术栈，避免重复开发。">
+            <summary>
+              <span class="qa-number">14</span>
+              <span class="qa-title">政府项目 50 万一个月交付怎么拆？</span>
+            </summary>
+            <div class="answer">
+              <p>先冻结需求范围，拆 MVP、关键页面、接口、权限、部署和验收标准；第一周原型和架构，第二三周开发联调，第四周测试验收。多端可优先复用 H5/小程序技术栈，避免重复开发。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="5" data-search="hj 公司 资产管理系统如何用 ai 开发交付？ ai 可辅助需求整理、数据模型设计、页面草图、接口文档、代码生成、测试用例和用户手册。业务上也可加入资产问答、智能盘点异常分析、报表生成和操作助手。">
+            <summary>
+              <span class="qa-number">15</span>
+              <span class="qa-title">资产管理系统如何用 AI 开发交付？</span>
+            </summary>
+            <div class="answer">
+              <p>AI 可辅助需求整理、数据模型设计、页面草图、接口文档、代码生成、测试用例和用户手册。业务上也可加入资产问答、智能盘点异常分析、报表生成和操作助手。</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="company-section" id="section-6" data-company-section="6">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Company</p>
+            <h2>FN 公司</h2>
+          </div>
+          <span class="section-count">10 题</span>
+        </div>
+        <div class="qa-list">
+          
+          <details class="qa-item" data-qa data-section="6" data-search="fn 公司 vue 和 react 核心区别？ vue 是渐进式框架，模板和响应式系统更开箱即用；react 更偏 ui 库，强调函数组件、jsx 和单向数据流，生态组合自由度更高。">
+            <summary>
+              <span class="qa-number">1</span>
+              <span class="qa-title">Vue 和 React 核心区别？</span>
+            </summary>
+            <div class="answer">
+              <p>Vue 是渐进式框架，模板和响应式系统更开箱即用；React 更偏 UI 库，强调函数组件、JSX 和单向数据流，生态组合自由度更高。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="6" data-search="fn 公司 谁性能上限更高？ 理论上 react 和 vue 性能上限都很高，关键看业务复杂度和优化能力。react 并发特性和生态灵活，vue 编译优化和响应式粒度更友好。">
+            <summary>
+              <span class="qa-number">2</span>
+              <span class="qa-title">谁性能上限更高？</span>
+            </summary>
+            <div class="answer">
+              <p>理论上 React 和 Vue 性能上限都很高，关键看业务复杂度和优化能力。React 并发特性和生态灵活，Vue 编译优化和响应式粒度更友好。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="6" data-search="fn 公司 最新版本在做什么？ react 重点在 server components、并发渲染、actions、编译器等方向；vue 重点在 composition api、编译优化、vapor mode 探索和更好的类型支持。">
+            <summary>
+              <span class="qa-number">3</span>
+              <span class="qa-title">最新版本在做什么？</span>
+            </summary>
+            <div class="answer">
+              <p>React 重点在 Server Components、并发渲染、Actions、编译器等方向；Vue 重点在 Composition API、编译优化、Vapor Mode 探索和更好的类型支持。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="6" data-search="fn 公司 http 请求经历什么，哪里缓存？ 经 dns、tcp/tls、发送请求、服务器处理、返回响应、浏览器解析。缓存可能发生在浏览器强缓存/协商缓存、service worker、cdn、代理网关和服务端缓存。">
+            <summary>
+              <span class="qa-number">4</span>
+              <span class="qa-title">HTTP 请求经历什么，哪里缓存？</span>
+            </summary>
+            <div class="answer">
+              <p>经 DNS、TCP/TLS、发送请求、服务器处理、返回响应、浏览器解析。缓存可能发生在浏览器强缓存/协商缓存、Service Worker、CDN、代理网关和服务端缓存。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="6" data-search="fn 公司 印象最深项目？ 选一个能体现复杂度的项目，用 star 讲：背景、你的职责、技术难点、解决方案、结果数据。">
+            <summary>
+              <span class="qa-number">5</span>
+              <span class="qa-title">印象最深项目？</span>
+            </summary>
+            <div class="answer">
+              <p>选一个能体现复杂度的项目，用 STAR 讲：背景、你的职责、技术难点、解决方案、结果数据。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="6" data-search="fn 公司 sse 和 websocket？ sse 是服务端到客户端的单向流，基于 http，适合模型流式输出、通知；websocket 是双向长连接，适合实时聊天、协同编辑、游戏和实时数据。">
+            <summary>
+              <span class="qa-number">6</span>
+              <span class="qa-title">SSE 和 WebSocket？</span>
+            </summary>
+            <div class="answer">
+              <p>SSE 是服务端到客户端的单向流，基于 HTTP，适合模型流式输出、通知；WebSocket 是双向长连接，适合实时聊天、协同编辑、游戏和实时数据。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="6" data-search="fn 公司 ai 时代程序员价值？ 价值从单纯写代码转向理解业务、拆解问题、做架构判断、控制质量、整合工具和交付结果。ai 提高效率，但责任和判断仍在工程师。">
+            <summary>
+              <span class="qa-number">7</span>
+              <span class="qa-title">AI 时代程序员价值？</span>
+            </summary>
+            <div class="answer">
+              <p>价值从单纯写代码转向理解业务、拆解问题、做架构判断、控制质量、整合工具和交付结果。AI 提高效率，但责任和判断仍在工程师。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="6" data-search="fn 公司 编程优缺点？ 优点可以说学习快、工程化意识强、能主动拆解问题；缺点可以说早期容易追求技术完整度，现在会更重视交付优先级和业务价值。">
+            <summary>
+              <span class="qa-number">8</span>
+              <span class="qa-title">编程优缺点？</span>
+            </summary>
+            <div class="answer">
+              <p>优点可以说学习快、工程化意识强、能主动拆解问题；缺点可以说早期容易追求技术完整度，现在会更重视交付优先级和业务价值。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="6" data-search="fn 公司 最近学什么？ 可回答 ai agent、rag、前端工程化、nestjs、k8s、playwright、数据库优化等，结合岗位选择。">
+            <summary>
+              <span class="qa-number">9</span>
+              <span class="qa-title">最近学什么？</span>
+            </summary>
+            <div class="answer">
+              <p>可回答 AI Agent、RAG、前端工程化、NestJS、K8S、Playwright、数据库优化等，结合岗位选择。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="6" data-search="fn 公司 职业规划？ 短期做好全栈和 ai 应用落地，中期成为能独立负责模块和方案的技术骨干，长期往架构或技术负责人方向发展。">
+            <summary>
+              <span class="qa-number">10</span>
+              <span class="qa-title">职业规划？</span>
+            </summary>
+            <div class="answer">
+              <p>短期做好全栈和 AI 应用落地，中期成为能独立负责模块和方案的技术骨干，长期往架构或技术负责人方向发展。</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="company-section" id="section-7" data-company-section="7">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Company</p>
+            <h2>XZ 公司</h2>
+          </div>
+          <span class="section-count">5 题</span>
+        </div>
+        <div class="qa-list">
+          
+          <details class="qa-item" data-qa data-section="7" data-search="xz 公司 自己的 ai 开发工作流？ 接到需求后先让 ai 辅助拆需求和风险，再自己确定技术方案；开发中用 ai 生成样板代码、测试和文档；最后人工 review、跑测试、检查边界和性能。">
+            <summary>
+              <span class="qa-number">1</span>
+              <span class="qa-title">自己的 AI 开发工作流？</span>
+            </summary>
+            <div class="answer">
+              <p>接到需求后先让 AI 辅助拆需求和风险，再自己确定技术方案；开发中用 AI 生成样板代码、测试和文档；最后人工 Review、跑测试、检查边界和性能。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="7" data-search="xz 公司 使用什么 mcp 或 skill？ 可以说用过文件、浏览器、git、数据库、文档、表格、测试相关 mcp/skill。核心价值是让 ai 不只聊天，还能读取项目、执行工具、生成和验证结果。">
+            <summary>
+              <span class="qa-number">2</span>
+              <span class="qa-title">使用什么 MCP 或 Skill？</span>
+            </summary>
+            <div class="answer">
+              <p>可以说用过文件、浏览器、Git、数据库、文档、表格、测试相关 MCP/Skill。核心价值是让 AI 不只聊天，还能读取项目、执行工具、生成和验证结果。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="7" data-search="xz 公司 接到需求后怎么做？ 先确认目标、用户、边界和验收标准，再拆技术方案、数据结构、接口、页面和风险点。开发时先打通主链路，再补异常、权限、性能和测试。">
+            <summary>
+              <span class="qa-number">3</span>
+              <span class="qa-title">接到需求后怎么做？</span>
+            </summary>
+            <div class="answer">
+              <p>先确认目标、用户、边界和验收标准，再拆技术方案、数据结构、接口、页面和风险点。开发时先打通主链路，再补异常、权限、性能和测试。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="7" data-search="xz 公司 3-5 年规划？ 希望成为兼具全栈工程能力和 ai 应用架构能力的技术骨干，能独立负责复杂项目，从需求、方案、开发、上线到优化闭环负责。">
+            <summary>
+              <span class="qa-number">4</span>
+              <span class="qa-title">3-5 年规划？</span>
+            </summary>
+            <div class="answer">
+              <p>希望成为兼具全栈工程能力和 AI 应用架构能力的技术骨干，能独立负责复杂项目，从需求、方案、开发、上线到优化闭环负责。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="7" data-search="xz 公司 工作中深刻的事？ 选一个真实案例：比如独立推动 ai 系统落地、优化慢查询、解决线上故障、从零搭建项目。重点讲你如何判断、协调和复盘。">
+            <summary>
+              <span class="qa-number">5</span>
+              <span class="qa-title">工作中深刻的事？</span>
+            </summary>
+            <div class="answer">
+              <p>选一个真实案例：比如独立推动 AI 系统落地、优化慢查询、解决线上故障、从零搭建项目。重点讲你如何判断、协调和复盘。</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="company-section" id="section-8" data-company-section="8">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Company</p>
+            <h2>SH 公司</h2>
+          </div>
+          <span class="section-count">39 题</span>
+        </div>
+        <div class="qa-list">
+          
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 css3 常用哪些？ flex、grid、transform、transition、animation、渐变、阴影、圆角、媒体查询、变量、粘性定位等。">
+            <summary>
+              <span class="qa-number">1</span>
+              <span class="qa-title">CSS3 常用哪些？</span>
+            </summary>
+            <div class="answer">
+              <p>Flex、Grid、transform、transition、animation、渐变、阴影、圆角、媒体查询、变量、粘性定位等。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 渐变、旋转、缩放、动画了解吗？ 渐变用 `linear-gradient/radial-gradient`，旋转缩放用 `transform: rotate/scale`，动画用 `transition` 或 `@keyframes animation`。">
+            <summary>
+              <span class="qa-number">2</span>
+              <span class="qa-title">渐变、旋转、缩放、动画了解吗？</span>
+            </summary>
+            <div class="answer">
+              <p>渐变用 <code>linear-gradient/radial-gradient</code>，旋转缩放用 <code>transform: rotate/scale</code>，动画用 <code>transition</code> 或 <code>@keyframes animation</code>。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 css 和 js 动画怎么做？ css 适合简单状态变化和关键帧动画；js 适合复杂交互、动态路径、物理效果和需要精确控制时间线的动画。">
+            <summary>
+              <span class="qa-number">3</span>
+              <span class="qa-title">CSS 和 JS 动画怎么做？</span>
+            </summary>
+            <div class="answer">
+              <p>CSS 适合简单状态变化和关键帧动画；JS 适合复杂交互、动态路径、物理效果和需要精确控制时间线的动画。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 css 动画和 js 动画区别？ css 声明式、性能好、实现简单；js 控制力强但需要注意主线程性能。涉及 transform/opacity 的动画一般更流畅。">
+            <summary>
+              <span class="qa-number">4</span>
+              <span class="qa-title">CSS 动画和 JS 动画区别？</span>
+            </summary>
+            <div class="answer">
+              <p>CSS 声明式、性能好、实现简单；JS 控制力强但需要注意主线程性能。涉及 transform/opacity 的动画一般更流畅。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 canvas 用过吗？ 用于图表、签名、图片编辑、粒子动画、游戏、海报生成等场景。它是像素级绘制，适合大量图形或自定义渲染。">
+            <summary>
+              <span class="qa-number">5</span>
+              <span class="qa-title">Canvas 用过吗？</span>
+            </summary>
+            <div class="answer">
+              <p>用于图表、签名、图片编辑、粒子动画、游戏、海报生成等场景。它是像素级绘制，适合大量图形或自定义渲染。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 canvas 做过什么场景？ 可以讲海报生成、签名板、数据大屏、红包动画、图片裁剪等，说明绘制、事件坐标、导出和性能优化。">
+            <summary>
+              <span class="qa-number">6</span>
+              <span class="qa-title">Canvas 做过什么场景？</span>
+            </summary>
+            <div class="answer">
+              <p>可以讲海报生成、签名板、数据大屏、红包动画、图片裁剪等，说明绘制、事件坐标、导出和性能优化。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 红包/福袋动画怎么做？ 简单的用 css 动画和序列帧，复杂的用 canvas/lottie。打开动作可通过缩放、抖动、光效、粒子、阴影和状态切换组合。">
+            <summary>
+              <span class="qa-number">7</span>
+              <span class="qa-title">红包/福袋动画怎么做？</span>
+            </summary>
+            <div class="answer">
+              <p>简单的用 CSS 动画和序列帧，复杂的用 Canvas/Lottie。打开动作可通过缩放、抖动、光效、粒子、阴影和状态切换组合。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 打开红包是画出来还是 ui 图？ 取决于效果。静态主体通常用 ui 图保证还原度，动态部分用 css/canvas/lottie 叠加。">
+            <summary>
+              <span class="qa-number">8</span>
+              <span class="qa-title">打开红包是画出来还是 UI 图？</span>
+            </summary>
+            <div class="answer">
+              <p>取决于效果。静态主体通常用 UI 图保证还原度，动态部分用 CSS/Canvas/Lottie 叠加。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 打开、抖动、浮动、阴影、缩放？ 可以用 `@keyframes` 控制 transform 和 opacity，阴影用 box-shadow/filter，浮动用 translatey 循环，打开用 scale/rotate/clip-path 或序列帧。">
+            <summary>
+              <span class="qa-number">9</span>
+              <span class="qa-title">打开、抖动、浮动、阴影、缩放？</span>
+            </summary>
+            <div class="answer">
+              <p>可以用 <code>@keyframes</code> 控制 transform 和 opacity，阴影用 box-shadow/filter，浮动用 translateY 循环，打开用 scale/rotate/clip-path 或序列帧。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 websocket 前端连接流程？ 创建 `new websocket(url)`，监听 `open/message/error/close`，连接成功后按协议发送鉴权或订阅消息。">
+            <summary>
+              <span class="qa-number">10</span>
+              <span class="qa-title">WebSocket 前端连接流程？</span>
+            </summary>
+            <div class="answer">
+              <p>创建 <code>new WebSocket(url)</code>，监听 <code>open/message/error/close</code>，连接成功后按协议发送鉴权或订阅消息。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 websocket 怎么监听消息？ 通过 `socket.onmessage` 或 `addeventlistener('message')`，收到后解析 json，根据事件类型分发到对应处理逻辑。">
+            <summary>
+              <span class="qa-number">11</span>
+              <span class="qa-title">WebSocket 怎么监听消息？</span>
+            </summary>
+            <div class="answer">
+              <p>通过 <code>socket.onmessage</code> 或 <code>addEventListener('message')</code>，收到后解析 JSON，根据事件类型分发到对应处理逻辑。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 怎么和后端约定事件？ 约定统一消息格式，如 `{ event, requestid, data, timestamp }`，并定义鉴权、订阅、心跳、错误码和重连后的补偿机制。">
+            <summary>
+              <span class="qa-number">12</span>
+              <span class="qa-title">怎么和后端约定事件？</span>
+            </summary>
+            <div class="answer">
+              <p>约定统一消息格式，如 <code>{ event, requestId, data, timestamp }</code>，并定义鉴权、订阅、心跳、错误码和重连后的补偿机制。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 心跳/保活？ 前端定时发送 ping，后端返回 pong；超过时间未收到响应则认为断开并重连。">
+            <summary>
+              <span class="qa-number">13</span>
+              <span class="qa-title">心跳/保活？</span>
+            </summary>
+            <div class="answer">
+              <p>前端定时发送 ping，后端返回 pong；超过时间未收到响应则认为断开并重连。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 断开怎么重连？ 监听 close/error 后触发重连，限制最大次数，使用指数退避，重连成功后重新鉴权和订阅。">
+            <summary>
+              <span class="qa-number">14</span>
+              <span class="qa-title">断开怎么重连？</span>
+            </summary>
+            <div class="answer">
+              <p>监听 close/error 后触发重连，限制最大次数，使用指数退避，重连成功后重新鉴权和订阅。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 连接不上？ 排查网络、url、协议 ws/wss、鉴权、跨域、代理、服务端连接数和防火墙。前端要提示用户并走降级。">
+            <summary>
+              <span class="qa-number">15</span>
+              <span class="qa-title">连接不上？</span>
+            </summary>
+            <div class="answer">
+              <p>排查网络、URL、协议 ws/wss、鉴权、跨域、代理、服务端连接数和防火墙。前端要提示用户并走降级。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 连接不上兜底？ 可以降级 http 轮询或让用户手动刷新，同时保留最后数据状态和错误提示。">
+            <summary>
+              <span class="qa-number">16</span>
+              <span class="qa-title">连接不上兜底？</span>
+            </summary>
+            <div class="answer">
+              <p>可以降级 HTTP 轮询或让用户手动刷新，同时保留最后数据状态和错误提示。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 是否降级 http 轮询？ 实时性要求不是极高时可以降级轮询，保证基本可用。">
+            <summary>
+              <span class="qa-number">17</span>
+              <span class="qa-title">是否降级 HTTP 轮询？</span>
+            </summary>
+            <div class="answer">
+              <p>实时性要求不是极高时可以降级轮询，保证基本可用。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 轮询频率怎么控制？ 根据业务实时性设置，前台高频、后台低频，失败时降低频率，页面隐藏时暂停或延长间隔。">
+            <summary>
+              <span class="qa-number">18</span>
+              <span class="qa-title">轮询频率怎么控制？</span>
+            </summary>
+            <div class="answer">
+              <p>根据业务实时性设置，前台高频、后台低频，失败时降低频率，页面隐藏时暂停或延长间隔。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 指数退避？ 重连间隔从 1s、2s、4s、8s 增加，并设置最大值和随机抖动，避免大量客户端同时重连。">
+            <summary>
+              <span class="qa-number">19</span>
+              <span class="qa-title">指数退避？</span>
+            </summary>
+            <div class="answer">
+              <p>重连间隔从 1s、2s、4s、8s 增加，并设置最大值和随机抖动，避免大量客户端同时重连。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 弱网怎么提示？ 显示“连接中/重连中/数据可能延迟”，禁用关键操作或给出重试按钮，恢复后自动刷新。">
+            <summary>
+              <span class="qa-number">20</span>
+              <span class="qa-title">弱网怎么提示？</span>
+            </summary>
+            <div class="answer">
+              <p>显示“连接中/重连中/数据可能延迟”，禁用关键操作或给出重试按钮，恢复后自动刷新。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 实时数据不准确怎么提示？ 展示最后更新时间、连接状态、数据延迟提示，必要时提供手动刷新和冲突提示。">
+            <summary>
+              <span class="qa-number">21</span>
+              <span class="qa-title">实时数据不准确怎么提示？</span>
+            </summary>
+            <div class="answer">
+              <p>展示最后更新时间、连接状态、数据延迟提示，必要时提供手动刷新和冲突提示。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 es6 常用特性？ `let/const`、箭头函数、模板字符串、解构、扩展运算符、promise、class、module、set/map、async/await。">
+            <summary>
+              <span class="qa-number">22</span>
+              <span class="qa-title">ES6 常用特性？</span>
+            </summary>
+            <div class="answer">
+              <p><code>let/const</code>、箭头函数、模板字符串、解构、扩展运算符、Promise、class、module、Set/Map、async/await。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 柯里化函数？ 把接收多个参数的函数转换成一系列接收单个或部分参数的函数，便于参数复用和函数组合。">
+            <summary>
+              <span class="qa-number">23</span>
+              <span class="qa-title">柯里化函数？</span>
+            </summary>
+            <div class="answer">
+              <p>把接收多个参数的函数转换成一系列接收单个或部分参数的函数，便于参数复用和函数组合。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 es5 和 es6 构造函数怎么写？ es5 用函数构造器和 prototype；es6 用 `class` 和 `constructor`，本质仍基于原型。">
+            <summary>
+              <span class="qa-number">24</span>
+              <span class="qa-title">ES5 和 ES6 构造函数怎么写？</span>
+            </summary>
+            <div class="answer">
+              <p>ES5 用函数构造器和 prototype；ES6 用 <code>class</code> 和 <code>constructor</code>，本质仍基于原型。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 es6/es5 构造对象？ es6 用 class/new，es5 用构造函数/new 或 object.create。">
+            <summary>
+              <span class="qa-number">25</span>
+              <span class="qa-title">ES6/ES5 构造对象？</span>
+            </summary>
+            <div class="answer">
+              <p>ES6 用 class/new，ES5 用构造函数/new 或 Object.create。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 平时区分 es5 和 es6？ 开发现代项目主要写 es6+，通过 babel/构建工具按目标浏览器降级。">
+            <summary>
+              <span class="qa-number">26</span>
+              <span class="qa-title">平时区分 ES5 和 ES6？</span>
+            </summary>
+            <div class="answer">
+              <p>开发现代项目主要写 ES6+，通过 Babel/构建工具按目标浏览器降级。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 promise、扩展运算符等？ promise 处理异步，扩展运算符用于数组/对象展开，箭头函数简化函数并绑定词法 this，模板字符串便于拼接。">
+            <summary>
+              <span class="qa-number">27</span>
+              <span class="qa-title">Promise、扩展运算符等？</span>
+            </summary>
+            <div class="answer">
+              <p>Promise 处理异步，扩展运算符用于数组/对象展开，箭头函数简化函数并绑定词法 this，模板字符串便于拼接。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 浏览器兼容？ 做过的话讲目标浏览器、babel、postcss、polyfill、css 前缀和降级策略。">
+            <summary>
+              <span class="qa-number">28</span>
+              <span class="qa-title">浏览器兼容？</span>
+            </summary>
+            <div class="answer">
+              <p>做过的话讲目标浏览器、Babel、PostCSS、polyfill、CSS 前缀和降级策略。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 兼容注意点？ css 关注布局、前缀、单位和属性支持；js 关注 api、语法、promise、urlsearchparams、intersectionobserver 等，需要 polyfill。">
+            <summary>
+              <span class="qa-number">29</span>
+              <span class="qa-title">兼容注意点？</span>
+            </summary>
+            <div class="answer">
+              <p>CSS 关注布局、前缀、单位和属性支持；JS 关注 API、语法、Promise、URLSearchParams、IntersectionObserver 等，需要 polyfill。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 低版本打包降级问题？ 常见是依赖包未转译、polyfill 缺失、目标浏览器配置不对。解决是配置 browserslist、transpiledependencies 和 core-js。">
+            <summary>
+              <span class="qa-number">30</span>
+              <span class="qa-title">低版本打包降级问题？</span>
+            </summary>
+            <div class="answer">
+              <p>常见是依赖包未转译、polyfill 缺失、目标浏览器配置不对。解决是配置 browserslist、transpileDependencies 和 core-js。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 低版本路由变了页面不跳？ 可能是 history api 不支持、hash/history 模式配置问题、polyfill 缺失或路由守卫异常。可改 hash 模式或加兼容处理。">
+            <summary>
+              <span class="qa-number">31</span>
+              <span class="qa-title">低版本路由变了页面不跳？</span>
+            </summary>
+            <div class="answer">
+              <p>可能是 History API 不支持、hash/history 模式配置问题、polyfill 缺失或路由守卫异常。可改 hash 模式或加兼容处理。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 框架是否抹平兼容？ 框架抹平了一部分状态和渲染差异，但浏览器 api、css 支持和第三方依赖兼容仍要自己处理。">
+            <summary>
+              <span class="qa-number">32</span>
+              <span class="qa-title">框架是否抹平兼容？</span>
+            </summary>
+            <div class="answer">
+              <p>框架抹平了一部分状态和渲染差异，但浏览器 API、CSS 支持和第三方依赖兼容仍要自己处理。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 react 多还是 vue 多？ 按真实经验回答，再强调两个框架核心理念都理解，可以根据团队技术栈切换。">
+            <summary>
+              <span class="qa-number">33</span>
+              <span class="qa-title">React 多还是 Vue 多？</span>
+            </summary>
+            <div class="answer">
+              <p>按真实经验回答，再强调两个框架核心理念都理解，可以根据团队技术栈切换。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 vue2 和 vue3 区别？ vue2 用 options api 和 defineproperty 响应式；vue3 引入 composition api、proxy、fragment、teleport、suspense 和更好的 ts 支持。">
+            <summary>
+              <span class="qa-number">34</span>
+              <span class="qa-title">Vue2 和 Vue3 区别？</span>
+            </summary>
+            <div class="answer">
+              <p>Vue2 用 Options API 和 defineProperty 响应式；Vue3 引入 Composition API、Proxy、Fragment、Teleport、Suspense 和更好的 TS 支持。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 响应式原理？ vue2 通过 object.defineproperty 劫持 getter/setter；vue3 通过 proxy 代理对象，配合 track/trigger 收集和触发依赖。">
+            <summary>
+              <span class="qa-number">35</span>
+              <span class="qa-title">响应式原理？</span>
+            </summary>
+            <div class="answer">
+              <p>Vue2 通过 Object.defineProperty 劫持 getter/setter；Vue3 通过 Proxy 代理对象，配合 track/trigger 收集和触发依赖。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 defineproperty 和 proxy 区别？ defineproperty 只能劫持已有属性，需要递归；proxy 可以代理整个对象，能监听新增删除、数组索引等，能力更完整。">
+            <summary>
+              <span class="qa-number">36</span>
+              <span class="qa-title">defineProperty 和 Proxy 区别？</span>
+            </summary>
+            <div class="answer">
+              <p>defineProperty 只能劫持已有属性，需要递归；Proxy 可以代理整个对象，能监听新增删除、数组索引等，能力更完整。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 vue3 性能优化？ 编译时静态提升、patchflag、block tree、proxy 惰性代理、更小运行时和更好的 tree-shaking。">
+            <summary>
+              <span class="qa-number">37</span>
+              <span class="qa-title">Vue3 性能优化？</span>
+            </summary>
+            <div class="answer">
+              <p>编译时静态提升、PatchFlag、Block Tree、Proxy 惰性代理、更小运行时和更好的 Tree-shaking。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 vue2 数组/对象变更不触发？ 新增对象属性、直接改数组索引或 length 可能无法触发。需要 `vue.set`、`this.$set` 或使用被重写的数组方法。">
+            <summary>
+              <span class="qa-number">38</span>
+              <span class="qa-title">Vue2 数组/对象变更不触发？</span>
+            </summary>
+            <div class="answer">
+              <p>新增对象属性、直接改数组索引或 length 可能无法触发。需要 <code>Vue.set</code>、<code>this.$set</code> 或使用被重写的数组方法。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="8" data-search="sh 公司 数据变了视图没变原因？ 可能是响应式未建立、直接修改嵌套属性、数组索引修改、key 不正确、组件缓存、异步更新未完成或状态源不是同一个。">
+            <summary>
+              <span class="qa-number">39</span>
+              <span class="qa-title">数据变了视图没变原因？</span>
+            </summary>
+            <div class="answer">
+              <p>可能是响应式未建立、直接修改嵌套属性、数组索引修改、key 不正确、组件缓存、异步更新未完成或状态源不是同一个。</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="company-section" id="section-9" data-company-section="9">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Company</p>
+            <h2>PY 公司</h2>
+          </div>
+          <span class="section-count">24 题</span>
+        </div>
+        <div class="qa-list">
+          
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 如何推动 ai 系统落地？ 从高频痛点切入，先做 mvp 验证价值，再逐步接入知识库、业务系统和工具。落地过程中关注效果评估、用户反馈、成本和稳定性。">
+            <summary>
+              <span class="qa-number">1</span>
+              <span class="qa-title">如何推动 AI 系统落地？</span>
+            </summary>
+            <div class="answer">
+              <p>从高频痛点切入，先做 MVP 验证价值，再逐步接入知识库、业务系统和工具。落地过程中关注效果评估、用户反馈、成本和稳定性。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 用户问题如何路由到 ai 系统？ 请求进入后先鉴权和上下文识别，再做意图分类，路由到普通问答、rag、agent 工具调用、人工客服或固定业务流程。">
+            <summary>
+              <span class="qa-number">2</span>
+              <span class="qa-title">用户问题如何路由到 AI 系统？</span>
+            </summary>
+            <div class="answer">
+              <p>请求进入后先鉴权和上下文识别，再做意图分类，路由到普通问答、RAG、Agent 工具调用、人工客服或固定业务流程。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 意图识别怎么实现，用哪些模型？ 可用规则 + 小模型分类 + 向量相似度混合。简单高频意图走规则，开放问题走 llm 分类，必要时加置信度和人工兜底。">
+            <summary>
+              <span class="qa-number">3</span>
+              <span class="qa-title">意图识别怎么实现，用哪些模型？</span>
+            </summary>
+            <div class="answer">
+              <p>可用规则 + 小模型分类 + 向量相似度混合。简单高频意图走规则，开放问题走 LLM 分类，必要时加置信度和人工兜底。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 未登录用户查询怎么处理？ 允许访问公开知识，生成匿名会话 id；涉及个人数据、订单、积分等必须引导登录。匿名会话可在登录后合并。">
+            <summary>
+              <span class="qa-number">4</span>
+              <span class="qa-title">未登录用户查询怎么处理？</span>
+            </summary>
+            <div class="answer">
+              <p>允许访问公开知识，生成匿名会话 ID；涉及个人数据、订单、积分等必须引导登录。匿名会话可在登录后合并。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 向量化和知识库检索？ 文档清洗切分后用 embedding 模型向量化，写入向量库；查询时向量召回，结合关键词、权限、元数据过滤和重排。">
+            <summary>
+              <span class="qa-number">5</span>
+              <span class="qa-title">向量化和知识库检索？</span>
+            </summary>
+            <div class="answer">
+              <p>文档清洗切分后用 Embedding 模型向量化，写入向量库；查询时向量召回，结合关键词、权限、元数据过滤和重排。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 文档/pdf/课件怎么切分入库审核？ 先解析文本和结构，按标题、段落、页码或语义切分，保留来源元数据；入库前做去重、敏感词、格式检查和人工抽检。">
+            <summary>
+              <span class="qa-number">6</span>
+              <span class="qa-title">文档/PDF/课件怎么切分入库审核？</span>
+            </summary>
+            <div class="answer">
+              <p>先解析文本和结构，按标题、段落、页码或语义切分，保留来源元数据；入库前做去重、敏感词、格式检查和人工抽检。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 ai 输出如何结构化，为什么 markdown 不是 json？ 对机器消费场景用 json schema 强约束；对用户阅读场景 markdown 更自然，支持标题、列表、表格和引用。若需要两者兼顾，可内部 json、展示 markdown。">
+            <summary>
+              <span class="qa-number">7</span>
+              <span class="qa-title">AI 输出如何结构化，为什么 Markdown 不是 JSON？</span>
+            </summary>
+            <div class="answer">
+              <p>对机器消费场景用 JSON Schema 强约束；对用户阅读场景 Markdown 更自然，支持标题、列表、表格和引用。若需要两者兼顾，可内部 JSON、展示 Markdown。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 数据库和后端架构？ 后端可分 api、业务服务、ai 编排、任务队列、数据访问和基础设施层。数据库通常 mysql 存业务数据，redis 缓存，向量库存知识，队列处理异步任务。">
+            <summary>
+              <span class="qa-number">8</span>
+              <span class="qa-title">数据库和后端架构？</span>
+            </summary>
+            <div class="answer">
+              <p>后端可分 API、业务服务、AI 编排、任务队列、数据访问和基础设施层。数据库通常 MySQL 存业务数据，Redis 缓存，向量库存知识，队列处理异步任务。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 微服务/数据中台/复杂后端？ 如有经验按项目讲。没有也可说理解服务拆分、网关、注册发现、配置、链路追踪、数据同步和权限治理，但更重视当前业务是否真的需要。">
+            <summary>
+              <span class="qa-number">9</span>
+              <span class="qa-title">微服务/数据中台/复杂后端？</span>
+            </summary>
+            <div class="answer">
+              <p>如有经验按项目讲。没有也可说理解服务拆分、网关、注册发现、配置、链路追踪、数据同步和权限治理，但更重视当前业务是否真的需要。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 多久落地？ 按真实情况。建议拆阶段：mvp `x 周`，知识库和业务接入 `x 周`，灰度和优化 `x 周`。">
+            <summary>
+              <span class="qa-number">10</span>
+              <span class="qa-title">多久落地？</span>
+            </summary>
+            <div class="answer">
+              <p>按真实情况。建议拆阶段：MVP <code>X 周</code>，知识库和业务接入 <code>X 周</code>，灰度和优化 <code>X 周</code>。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 没经验怎么学习？ 先看官方文档和成熟案例，再做最小 demo 验证；遇到问题通过日志、源码、社区和实验对比解决，最后沉淀成团队规范。">
+            <summary>
+              <span class="qa-number">11</span>
+              <span class="qa-title">没经验怎么学习？</span>
+            </summary>
+            <div class="answer">
+              <p>先看官方文档和成熟案例，再做最小 Demo 验证；遇到问题通过日志、源码、社区和实验对比解决，最后沉淀成团队规范。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 秒杀系统架构？ 前端限流和验证码，网关限流，redis 预扣库存，消息队列削峰，后端异步创建订单，mysql 最终落库，超时未支付释放库存。">
+            <summary>
+              <span class="qa-number">12</span>
+              <span class="qa-title">秒杀系统架构？</span>
+            </summary>
+            <div class="answer">
+              <p>前端限流和验证码，网关限流，Redis 预扣库存，消息队列削峰，后端异步创建订单，MySQL 最终落库，超时未支付释放库存。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 高并发避免超卖？ 核心是库存扣减必须原子化。可用 redis lua 原子扣减、mysql 条件更新、乐观锁或队列串行化处理。">
+            <summary>
+              <span class="qa-number">13</span>
+              <span class="qa-title">高并发避免超卖？</span>
+            </summary>
+            <div class="answer">
+              <p>核心是库存扣减必须原子化。可用 Redis Lua 原子扣减、MySQL 条件更新、乐观锁或队列串行化处理。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 mysql 怎么实现库存扣减？ 使用 `update sku set stock = stock - 1 where id = ? and stock &gt; 0`，检查影响行数。配合事务创建订单，失败则回滚。">
+            <summary>
+              <span class="qa-number">14</span>
+              <span class="qa-title">MySQL 怎么实现库存扣减？</span>
+            </summary>
+            <div class="answer">
+              <p>使用 <code>update sku set stock = stock - 1 where id = ? and stock &gt; 0</code>，检查影响行数。配合事务创建订单，失败则回滚。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 redis 分布式锁或 lua？ 分布式锁用于控制同一资源并发，但秒杀更推荐 lua 原子判断和扣减库存，减少锁竞争。lua 脚本在 redis 单线程内原子执行。">
+            <summary>
+              <span class="qa-number">15</span>
+              <span class="qa-title">Redis 分布式锁或 Lua？</span>
+            </summary>
+            <div class="answer">
+              <p>分布式锁用于控制同一资源并发，但秒杀更推荐 Lua 原子判断和扣减库存，减少锁竞争。Lua 脚本在 Redis 单线程内原子执行。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 限流、削峰、事务、乐观锁？ 限流在网关和接口层，削峰用 mq，事务保证订单和支付状态一致，乐观锁通过版本号或条件更新避免并发覆盖。">
+            <summary>
+              <span class="qa-number">16</span>
+              <span class="qa-title">限流、削峰、事务、乐观锁？</span>
+            </summary>
+            <div class="answer">
+              <p>限流在网关和接口层，削峰用 MQ，事务保证订单和支付状态一致，乐观锁通过版本号或条件更新避免并发覆盖。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 不用 redis 只用 mysql？ 用条件更新、事务、唯一索引、防重复订单、乐观锁和队列控制并发。性能上限较低，需要控制流量。">
+            <summary>
+              <span class="qa-number">17</span>
+              <span class="qa-title">不用 Redis 只用 MySQL？</span>
+            </summary>
+            <div class="answer">
+              <p>用条件更新、事务、唯一索引、防重复订单、乐观锁和队列控制并发。性能上限较低，需要控制流量。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 微信支付接入流程？ 下单生成本地订单，再调用微信统一下单/jsapi 获取支付参数，前端拉起支付；微信异步回调后验签、查单、更新订单和发放权益。">
+            <summary>
+              <span class="qa-number">18</span>
+              <span class="qa-title">微信支付接入流程？</span>
+            </summary>
+            <div class="answer">
+              <p>下单生成本地订单，再调用微信统一下单/JSAPI 获取支付参数，前端拉起支付；微信异步回调后验签、查单、更新订单和发放权益。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 支付后积分/虚拟产品到账？ 以支付回调和主动查单结果为准，更新订单状态后发放权益。发放要幂等，防止重复回调导致重复到账。">
+            <summary>
+              <span class="qa-number">19</span>
+              <span class="qa-title">支付后积分/虚拟产品到账？</span>
+            </summary>
+            <div class="answer">
+              <p>以支付回调和主动查单结果为准，更新订单状态后发放权益。发放要幂等，防止重复回调导致重复到账。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 支付为什么用异步队列？ 支付回调要快速响应，权益发放、通知、积分流水等可异步处理，提升稳定性并削峰。">
+            <summary>
+              <span class="qa-number">20</span>
+              <span class="qa-title">支付为什么用异步队列？</span>
+            </summary>
+            <div class="answer">
+              <p>支付回调要快速响应，权益发放、通知、积分流水等可异步处理，提升稳定性并削峰。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 队列挂了怎么保证一致？ 支付订单状态先落库，队列失败要可重试；定时任务扫描已支付未发放订单做补偿，任务处理要幂等。">
+            <summary>
+              <span class="qa-number">21</span>
+              <span class="qa-title">队列挂了怎么保证一致？</span>
+            </summary>
+            <div class="answer">
+              <p>支付订单状态先落库，队列失败要可重试；定时任务扫描已支付未发放订单做补偿，任务处理要幂等。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 回调验签流程？ 获取回调头和报文，使用平台证书验证签名，解密资源数据，校验商户号、订单号、金额和状态，再更新本地订单。">
+            <summary>
+              <span class="qa-number">22</span>
+              <span class="qa-title">回调验签流程？</span>
+            </summary>
+            <div class="answer">
+              <p>获取回调头和报文，使用平台证书验证签名，解密资源数据，校验商户号、订单号、金额和状态，再更新本地订单。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 mcp/skill 如何辅助开发？ 用于读取项目、查文档、执行测试、操作浏览器、生成文档和分析数据，让 ai 能参与完整开发闭环。">
+            <summary>
+              <span class="qa-number">23</span>
+              <span class="qa-title">MCP/Skill 如何辅助开发？</span>
+            </summary>
+            <div class="answer">
+              <p>用于读取项目、查文档、执行测试、操作浏览器、生成文档和分析数据，让 AI 能参与完整开发闭环。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="9" data-search="py 公司 没有产品经理怎么出草图和 prd？ 先访谈业务和用户，梳理流程、角色、字段和验收标准；用 ai 辅助生成 prd 初稿和原型，再和业务快速确认迭代。">
+            <summary>
+              <span class="qa-number">24</span>
+              <span class="qa-title">没有产品经理怎么出草图和 PRD？</span>
+            </summary>
+            <div class="answer">
+              <p>先访谈业务和用户，梳理流程、角色、字段和验收标准；用 AI 辅助生成 PRD 初稿和原型，再和业务快速确认迭代。</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="company-section" id="section-10" data-company-section="10">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Company</p>
+            <h2>HQ 公司</h2>
+          </div>
+          <span class="section-count">36 题</span>
+        </div>
+        <div class="qa-list">
+          
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 nextjs 用得多吗？ 按真实经验回答。可以补充理解 ssr、ssg、app router、server components、api routes 和部署方式。">
+            <summary>
+              <span class="qa-number">1</span>
+              <span class="qa-title">NextJS 用得多吗？</span>
+            </summary>
+            <div class="answer">
+              <p>按真实经验回答。可以补充理解 SSR、SSG、App Router、Server Components、API Routes 和部署方式。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 typeorm 和 prisma？ typeorm 更接近传统 orm，支持 entity、repository、querybuilder；prisma 类型体验好、schema 驱动、迁移和查询 api 更现代。">
+            <summary>
+              <span class="qa-number">2</span>
+              <span class="qa-title">TypeORM 和 Prisma？</span>
+            </summary>
+            <div class="answer">
+              <p>TypeORM 更接近传统 ORM，支持 Entity、Repository、QueryBuilder；Prisma 类型体验好、Schema 驱动、迁移和查询 API 更现代。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 优缺点对比？ typeorm 灵活、适合复杂 sql 和 nestjs 集成，但类型体验和迁移稳定性一般；prisma 类型安全和开发体验好，但复杂查询、动态 sql 和某些高级特性可能不如手写灵活。">
+            <summary>
+              <span class="qa-number">3</span>
+              <span class="qa-title">优缺点对比？</span>
+            </summary>
+            <div class="answer">
+              <p>TypeORM 灵活、适合复杂 SQL 和 NestJS 集成，但类型体验和迁移稳定性一般；Prisma 类型安全和开发体验好，但复杂查询、动态 SQL 和某些高级特性可能不如手写灵活。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 技术选型谁决定？ 通常由技术负责人主导，核心开发参与评估，结合业务需求、团队经验、维护成本、生态和风险决定。">
+            <summary>
+              <span class="qa-number">4</span>
+              <span class="qa-title">技术选型谁决定？</span>
+            </summary>
+            <div class="answer">
+              <p>通常由技术负责人主导，核心开发参与评估，结合业务需求、团队经验、维护成本、生态和风险决定。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 nest provider 默认单例还是每次请求新建？ 默认是单例。也可以通过 scope 配置成 request-scoped 或 transient。">
+            <summary>
+              <span class="qa-number">5</span>
+              <span class="qa-title">Nest Provider 默认单例还是每次请求新建？</span>
+            </summary>
+            <div class="answer">
+              <p>默认是单例。也可以通过 scope 配置成 request-scoped 或 transient。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 单例模式优点？ 节省资源、便于共享连接和配置、状态集中管理。缺点是共享状态要注意并发和副作用。">
+            <summary>
+              <span class="qa-number">6</span>
+              <span class="qa-title">单例模式优点？</span>
+            </summary>
+            <div class="answer">
+              <p>节省资源、便于共享连接和配置、状态集中管理。缺点是共享状态要注意并发和副作用。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 几十上百接口统一日志/监控？ 用 nest interceptor、middleware 或全局 aop 思路统一处理，记录请求参数、耗时、状态码、用户、错误和 traceid。">
+            <summary>
+              <span class="qa-number">7</span>
+              <span class="qa-title">几十上百接口统一日志/监控？</span>
+            </summary>
+            <div class="answer">
+              <p>用 Nest Interceptor、Middleware 或全局 AOP 思路统一处理，记录请求参数、耗时、状态码、用户、错误和 traceId。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 nest pipe 概念？ pipe 用于参数转换和校验，比如 dto 校验、类型转换、默认值处理。常用 `validationpipe` 做入参校验。">
+            <summary>
+              <span class="qa-number">8</span>
+              <span class="qa-title">Nest Pipe 概念？</span>
+            </summary>
+            <div class="answer">
+              <p>Pipe 用于参数转换和校验，比如 DTO 校验、类型转换、默认值处理。常用 <code>ValidationPipe</code> 做入参校验。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 typeorm 两种运行模式？ 常见说法是 data mapper 和 active record。data mapper 通过 repository 操作实体，active record 实体自己带保存查询方法。">
+            <summary>
+              <span class="qa-number">9</span>
+              <span class="qa-title">TypeORM 两种运行模式？</span>
+            </summary>
+            <div class="answer">
+              <p>常见说法是 Data Mapper 和 Active Record。Data Mapper 通过 Repository 操作实体，Active Record 实体自己带保存查询方法。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 typeorm 查询慢怎么抓 sql？ 开启 logging，或用 querybuilder 的 `getsql()`，再结合 mysql slow query log、explain、索引分析和执行计划调优。">
+            <summary>
+              <span class="qa-number">10</span>
+              <span class="qa-title">TypeORM 查询慢怎么抓 SQL？</span>
+            </summary>
+            <div class="answer">
+              <p>开启 logging，或用 QueryBuilder 的 <code>getSql()</code>，再结合 MySQL slow query log、EXPLAIN、索引分析和执行计划调优。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 postgresql 物化视图？ 物化视图会把查询结果持久化，适合复杂统计查询加速。数据不是实时的，需要 refresh。">
+            <summary>
+              <span class="qa-number">11</span>
+              <span class="qa-title">PostgreSQL 物化视图？</span>
+            </summary>
+            <div class="answer">
+              <p>物化视图会把查询结果持久化，适合复杂统计查询加速。数据不是实时的，需要 refresh。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 mysql 慢查询优化？ 开慢查询日志，定位 sql，用 explain 看索引、扫描行数、临时表、排序；优化索引、改写 sql、分页方式、减少回表和大事务。">
+            <summary>
+              <span class="qa-number">12</span>
+              <span class="qa-title">MySQL 慢查询优化？</span>
+            </summary>
+            <div class="answer">
+              <p>开慢查询日志，定位 SQL，用 EXPLAIN 看索引、扫描行数、临时表、排序；优化索引、改写 SQL、分页方式、减少回表和大事务。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 分库分表/读写分离经验？ 按真实经验回答。没有深度经验可以说了解方案和代价：分库分表解决容量和写入压力，读写分离解决读压力，但会带来事务、join、分页和一致性复杂度。">
+            <summary>
+              <span class="qa-number">13</span>
+              <span class="qa-title">分库分表/读写分离经验？</span>
+            </summary>
+            <div class="answer">
+              <p>按真实经验回答。没有深度经验可以说了解方案和代价：分库分表解决容量和写入压力，读写分离解决读压力，但会带来事务、Join、分页和一致性复杂度。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 bull queue 进程崩溃/k8s 重启任务会丢吗？ bull 基于 redis 持久化任务，正常配置下不会因为 worker 崩溃就丢。重启后 stalled job 会被重新认领，但任务本身必须幂等。">
+            <summary>
+              <span class="qa-number">14</span>
+              <span class="qa-title">Bull Queue 进程崩溃/K8S 重启任务会丢吗？</span>
+            </summary>
+            <div class="answer">
+              <p>Bull 基于 Redis 持久化任务，正常配置下不会因为 worker 崩溃就丢。重启后 stalled job 会被重新认领，但任务本身必须幂等。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 如何保证队列任务不丢和一致性？ 任务入队前后落库记录状态，开启重试和死信队列，worker 幂等处理，定时扫描卡住任务补偿，关键状态变更用事务。">
+            <summary>
+              <span class="qa-number">15</span>
+              <span class="qa-title">如何保证队列任务不丢和一致性？</span>
+            </summary>
+            <div class="answer">
+              <p>任务入队前后落库记录状态，开启重试和死信队列，worker 幂等处理，定时扫描卡住任务补偿，关键状态变更用事务。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 重复推理优化、降成本？ 使用请求指纹去重、结果缓存、任务幂等键、相同文档 embedding 复用、失败重试次数限制和模型分层。">
+            <summary>
+              <span class="qa-number">16</span>
+              <span class="qa-title">重复推理优化、降成本？</span>
+            </summary>
+            <div class="answer">
+              <p>使用请求指纹去重、结果缓存、任务幂等键、相同文档 Embedding 复用、失败重试次数限制和模型分层。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 任务中断断点续跑？ 把长任务拆成步骤，每一步记录状态、输入、输出和进度。重启后从最近成功步骤继续，已完成步骤不重复执行。">
+            <summary>
+              <span class="qa-number">17</span>
+              <span class="qa-title">任务中断断点续跑？</span>
+            </summary>
+            <div class="answer">
+              <p>把长任务拆成步骤，每一步记录状态、输入、输出和进度。重启后从最近成功步骤继续，已完成步骤不重复执行。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 前端感知任务状态？ 后端维护任务状态机，前端通过 sse/websocket/轮询获取 pending/running/failed/done/progress，并展示重试或取消。">
+            <summary>
+              <span class="qa-number">18</span>
+              <span class="qa-title">前端感知任务状态？</span>
+            </summary>
+            <div class="answer">
+              <p>后端维护任务状态机，前端通过 SSE/WebSocket/轮询获取 pending/running/failed/done/progress，并展示重试或取消。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 sse 和 websocket 区别？ sse 单向、基于 http、适合服务端推流；websocket 双向、实时性更强，适合频繁双向交互。">
+            <summary>
+              <span class="qa-number">19</span>
+              <span class="qa-title">SSE 和 WebSocket 区别？</span>
+            </summary>
+            <div class="answer">
+              <p>SSE 单向、基于 HTTP、适合服务端推流；WebSocket 双向、实时性更强，适合频繁双向交互。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 agui 动态渲染表单/卡片流程？ 后端输出结构化 ui 协议，前端根据组件类型、字段、校验、布局和事件映射到本地组件库，动态渲染并回传用户操作。">
+            <summary>
+              <span class="qa-number">20</span>
+              <span class="qa-title">AGUI 动态渲染表单/卡片流程？</span>
+            </summary>
+            <div class="answer">
+              <p>后端输出结构化 UI 协议，前端根据组件类型、字段、校验、布局和事件映射到本地组件库，动态渲染并回传用户操作。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 流式协议前端边接收边渲染？ 用 sse/fetch stream 读取 chunk，按协议解析事件，增量更新消息、表单或卡片状态。注意半包、顺序、错误事件和结束标记。">
+            <summary>
+              <span class="qa-number">21</span>
+              <span class="qa-title">流式协议前端边接收边渲染？</span>
+            </summary>
+            <div class="answer">
+              <p>用 SSE/fetch stream 读取 chunk，按协议解析事件，增量更新消息、表单或卡片状态。注意半包、顺序、错误事件和结束标记。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 协议底层 api 设计逻辑？ 核心是事件驱动：定义 message、delta、tool_call、ui_update、error、done 等事件类型，每个事件有唯一 id 和 payload，前端按类型分发。">
+            <summary>
+              <span class="qa-number">22</span>
+              <span class="qa-title">协议底层 API 设计逻辑？</span>
+            </summary>
+            <div class="answer">
+              <p>核心是事件驱动：定义 message、delta、tool_call、ui_update、error、done 等事件类型，每个事件有唯一 ID 和 payload，前端按类型分发。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 数据库事务？ 事务是一组操作的原子执行单元，满足 acid：原子性、一致性、隔离性、持久性。">
+            <summary>
+              <span class="qa-number">23</span>
+              <span class="qa-title">数据库事务？</span>
+            </summary>
+            <div class="answer">
+              <p>事务是一组操作的原子执行单元，满足 ACID：原子性、一致性、隔离性、持久性。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 必须用事务的场景？ 例如支付成功后更新订单、积分流水和权益发放记录；或者创建任务时同时写任务表、步骤表和日志表，任何一步失败都要回滚。">
+            <summary>
+              <span class="qa-number">24</span>
+              <span class="qa-title">必须用事务的场景？</span>
+            </summary>
+            <div class="answer">
+              <p>例如支付成功后更新订单、积分流水和权益发放记录；或者创建任务时同时写任务表、步骤表和日志表，任何一步失败都要回滚。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 langchain 不同版本/模块区别？ 新版本更模块化，拆成 core、community、具体 provider 包等；langgraph 负责图状态编排，langsmith 负责观测评估。">
+            <summary>
+              <span class="qa-number">25</span>
+              <span class="qa-title">LangChain 不同版本/模块区别？</span>
+            </summary>
+            <div class="answer">
+              <p>新版本更模块化，拆成 core、community、具体 provider 包等；LangGraph 负责图状态编排，LangSmith 负责观测评估。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 多智能体动态路由？ 通过意图分类、规则、模型判断或状态条件，把任务分配到不同 agent。langgraph 中可以用 conditional edge 根据状态返回下一个节点。">
+            <summary>
+              <span class="qa-number">26</span>
+              <span class="qa-title">多智能体动态路由？</span>
+            </summary>
+            <div class="answer">
+              <p>通过意图分类、规则、模型判断或状态条件，把任务分配到不同 Agent。LangGraph 中可以用 conditional edge 根据状态返回下一个节点。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 查询改写？ 查询改写是把用户原始问题改成更适合检索的问题，比如补全上下文、提取关键词、生成多个子查询，提升召回率。">
+            <summary>
+              <span class="qa-number">27</span>
+              <span class="qa-title">查询改写？</span>
+            </summary>
+            <div class="answer">
+              <p>查询改写是把用户原始问题改成更适合检索的问题，比如补全上下文、提取关键词、生成多个子查询，提升召回率。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 知识库用什么向量库？ 按真实情况回答。可补充选型依据：数据规模、过滤、混合检索、部署成本和团队熟悉度。">
+            <summary>
+              <span class="qa-number">28</span>
+              <span class="qa-title">知识库用什么向量库？</span>
+            </summary>
+            <div class="answer">
+              <p>按真实情况回答。可补充选型依据：数据规模、过滤、混合检索、部署成本和团队熟悉度。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 es + 向量库混合检索流程？ 用户问题同时走关键词检索和向量检索，合并结果后去重、归一化打分、按权限和元数据过滤，再重排后进入模型。">
+            <summary>
+              <span class="qa-number">29</span>
+              <span class="qa-title">ES + 向量库混合检索流程？</span>
+            </summary>
+            <div class="answer">
+              <p>用户问题同时走关键词检索和向量检索，合并结果后去重、归一化打分、按权限和元数据过滤，再重排后进入模型。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 为什么还要 re-rank？ 初召回追求覆盖，排序不一定精准。re-rank 用更强的交叉编码器或模型理解 query 与文档关系，提高最终上下文质量。">
+            <summary>
+              <span class="qa-number">30</span>
+              <span class="qa-title">为什么还要 Re-rank？</span>
+            </summary>
+            <div class="answer">
+              <p>初召回追求覆盖，排序不一定精准。Re-rank 用更强的交叉编码器或模型理解 Query 与文档关系，提高最终上下文质量。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 领域词典？ 领域词典用于同义词、专业术语、缩写和业务实体归一化，可提升关键词检索、查询改写和意图识别效果。">
+            <summary>
+              <span class="qa-number">31</span>
+              <span class="qa-title">领域词典？</span>
+            </summary>
+            <div class="answer">
+              <p>领域词典用于同义词、专业术语、缩写和业务实体归一化，可提升关键词检索、查询改写和意图识别效果。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 vue2 数组方法如何重写？ vue2 拦截 `push/pop/shift/unshift/splice/sort/reverse`，在调用原生方法后手动通知依赖更新，并对新增元素做响应式处理。">
+            <summary>
+              <span class="qa-number">32</span>
+              <span class="qa-title">Vue2 数组方法如何重写？</span>
+            </summary>
+            <div class="answer">
+              <p>Vue2 拦截 <code>push/pop/shift/unshift/splice/sort/reverse</code>，在调用原生方法后手动通知依赖更新，并对新增元素做响应式处理。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 哪些数组方法无法原生拦截？ 直接通过索引赋值和修改 length 无法被 defineproperty 拦截，需要 `vue.set` 或 `splice`。">
+            <summary>
+              <span class="qa-number">33</span>
+              <span class="qa-title">哪些数组方法无法原生拦截？</span>
+            </summary>
+            <div class="answer">
+              <p>直接通过索引赋值和修改 length 无法被 defineProperty 拦截，需要 <code>Vue.set</code> 或 <code>splice</code>。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 vue3 proxy 优势？ 能监听新增、删除、索引、in、ownkeys 等操作，响应式更完整，初始化时也更惰性。">
+            <summary>
+              <span class="qa-number">34</span>
+              <span class="qa-title">Vue3 Proxy 优势？</span>
+            </summary>
+            <div class="answer">
+              <p>能监听新增、删除、索引、in、ownKeys 等操作，响应式更完整，初始化时也更惰性。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 vue3 weakmap 作用？ vue3 用 weakmap 存 target 到依赖 map 的映射，弱引用避免对象不用后无法被垃圾回收。">
+            <summary>
+              <span class="qa-number">35</span>
+              <span class="qa-title">Vue3 WeakMap 作用？</span>
+            </summary>
+            <div class="answer">
+              <p>Vue3 用 WeakMap 存 target 到依赖 Map 的映射，弱引用避免对象不用后无法被垃圾回收。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="10" data-search="hq 公司 harness 概念？ harness 通常指测试或执行“脚手架/运行框架”，用于提供可控环境、mock、断言和执行入口。具体含义要结合上下文，若是 ci/cd 产品 harness，则是持续交付和流水线平台。">
+            <summary>
+              <span class="qa-number">36</span>
+              <span class="qa-title">Harness 概念？</span>
+            </summary>
+            <div class="answer">
+              <p>Harness 通常指测试或执行“脚手架/运行框架”，用于提供可控环境、Mock、断言和执行入口。具体含义要结合上下文，若是 CI/CD 产品 Harness，则是持续交付和流水线平台。</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section class="company-section" id="section-11" data-company-section="11">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Company</p>
+            <h2>YU 公司</h2>
+          </div>
+          <span class="section-count">3 题</span>
+        </div>
+        <div class="qa-list">
+          
+          <details class="qa-item" data-qa data-section="11" data-search="yu 公司 求职最看重什么？ 可以说看重业务方向、团队氛围、技术成长、职责边界和长期稳定性。希望岗位能让我把全栈和 ai 工程能力真正用到业务结果上。">
+            <summary>
+              <span class="qa-number">1</span>
+              <span class="qa-title">求职最看重什么？</span>
+            </summary>
+            <div class="answer">
+              <p>可以说看重业务方向、团队氛围、技术成长、职责边界和长期稳定性。希望岗位能让我把全栈和 AI 工程能力真正用到业务结果上。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="11" data-search="yu 公司 过往主要开发还是管理？ 按真实经历回答。如果两者都有，可以说主线是开发，同时承担过需求拆解、排期、评审、带人和跨团队沟通。">
+            <summary>
+              <span class="qa-number">2</span>
+              <span class="qa-title">过往主要开发还是管理？</span>
+            </summary>
+            <div class="answer">
+              <p>按真实经历回答。如果两者都有，可以说主线是开发，同时承担过需求拆解、排期、评审、带人和跨团队沟通。</p>
+            </div>
+          </details>
+
+          <details class="qa-item" data-qa data-section="11" data-search="yu 公司 日常 ai 工具、渠道、费用和稳定性？ 按真实情况回答。可以分编码助手、通用问答、文档分析、图片/原型、自动化测试几类说明，并强调公司项目会遵守数据安全和合规要求。">
+            <summary>
+              <span class="qa-number">3</span>
+              <span class="qa-title">日常 AI 工具、渠道、费用和稳定性？</span>
+            </summary>
+            <div class="answer">
+              <p>按真实情况回答。可以分编码助手、通用问答、文档分析、图片/原型、自动化测试几类说明，并强调公司项目会遵守数据安全和合规要求。</p>
+            </div>
+          </details>
+        </div>
+      </section>
+      </div>
+      <div class="empty" id="emptyState">没有找到匹配内容</div>
+
+      <footer class="footer">
+        来源：interview_answers_by_company.md。涉及用户量、Token、成本、并发等数字，请替换为真实口径后再背。
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const companyFilter = document.getElementById("companyFilter");
+    const toggleAll = document.getElementById("toggleAll");
+    const visibleCount = document.getElementById("visibleCount");
+    const emptyState = document.getElementById("emptyState");
+    const qaItems = Array.from(document.querySelectorAll("[data-qa]"));
+    const sections = Array.from(document.querySelectorAll("[data-company-section]"));
+    const sectionLinks = Array.from(document.querySelectorAll("[data-section-link]"));
+
+    function normalize(value) {
+      return value.trim().toLowerCase();
+    }
+
+    function applyFilters() {
+      const query = normalize(searchInput.value);
+      const selected = companyFilter.value;
+      let count = 0;
+
+      qaItems.forEach((item) => {
+        const matchesCompany = selected === "all" || item.dataset.section === selected;
+        const matchesQuery = !query || item.dataset.search.includes(query);
+        const visible = matchesCompany && matchesQuery;
+        item.hidden = !visible;
+        if (visible) count += 1;
+        if (query && visible) item.open = true;
+      });
+
+      sections.forEach((section) => {
+        const hasVisibleItem = Array.from(section.querySelectorAll("[data-qa]")).some((item) => !item.hidden);
+        section.hidden = !hasVisibleItem;
+      });
+
+      sectionLinks.forEach((link) => {
+        const section = document.querySelector('[data-company-section="' + link.dataset.sectionLink + '"]');
+        link.hidden = Boolean(section && section.hidden);
+      });
+
+      visibleCount.textContent = count;
+      emptyState.classList.toggle("visible", count === 0);
+      toggleAll.textContent = qaItems.some((item) => !item.hidden && !item.open) ? "展开全部" : "收起全部";
+    }
+
+    function updateActiveLink() {
+      let activeIndex = "0";
+      for (const section of sections) {
+        if (section.hidden) continue;
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 140) activeIndex = section.dataset.companySection;
+      }
+
+      sectionLinks.forEach((link) => {
+        link.classList.toggle("active", link.dataset.sectionLink === activeIndex);
+      });
+    }
+
+    searchInput.addEventListener("input", applyFilters);
+    companyFilter.addEventListener("change", applyFilters);
+    window.addEventListener("scroll", updateActiveLink, { passive: true });
+
+    toggleAll.addEventListener("click", () => {
+      const shouldOpen = qaItems.some((item) => !item.hidden && !item.open);
+      qaItems.forEach((item) => {
+        if (!item.hidden) item.open = shouldOpen;
+      });
+      toggleAll.textContent = shouldOpen ? "收起全部" : "展开全部";
+    });
+
+    sectionLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        companyFilter.value = "all";
+        applyFilters();
+      });
+    });
+
+    applyFilters();
+    updateActiveLink();
+  </script>
+</body>
+</html>
